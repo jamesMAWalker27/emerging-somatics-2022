@@ -1,0 +1,11 @@
+@import '/styles/mixins';
+
+.btn {
+  @include btn;
+  &.textOnly {
+    border: none;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+}

@@ -1,0 +1,107 @@
+@import "/styles/mixins";
+
+.contactContainer {
+  @include fullPageSection;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1fr);
+}
+
+.textContent {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  div:first-child {
+    height: auto;
+    margin-bottom: 5vh;
+  }
+  .contacts,
+  .socials {
+    list-style: none;
+    padding: 0;
+  }
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    li {
+      font-family: "Segoe UI Bold";
+      font-weight: var(--light);
+      margin-bottom: var(--space-header-intra);
+    }
+  }
+  .socials {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    li {
+      margin-right: var(--space-icon);
+      svg {
+        transition: var(--transition-primary);
+      }
+      &:hover {
+        path {
+          stroke: var(--green);
+        }
+      }
+    }
+  }
+}
+
+.flexWrap {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.contactForm {
+  position: relative;
+  width: 100%;
+  height: min(662px, 62.5vh);
+  margin-top: calc(1.05 * var(--space-container-top));
+  display: grid;
+  gap: var(--space-3xl) 0;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, var(--space-8xl)) 1fr;
+  input,
+  textarea {
+    width: 100%;
+    padding: 1rem;
+    height: var(--space-8xl);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-text);
+    &:focus,
+    &:focus-within,
+    &:focus-visible {
+      border-color: var(--green);
+      outline: none;
+    }
+    &::placeholder {
+      font-family: var(--font-body);
+      font-style: italic;
+      letter-spacing: var(--push-md);
+      color: var(--color-med);
+    }
+  }
+  textarea {
+    height: 100%;
+    padding: 1rem;
+  }
+  button {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background-color: var(--color-bg);
+    &:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+  }
+}

@@ -1,26 +1,149 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 * {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+#masterWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+
+#panelWrap {
+  /* position: absolute; */
+  /* top: 100vh; */
+  left: 0;
+  height: 100%;
+  height: 100vh;
+  transition: opacity .3s;
+}
+
+section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-weight: 700;
+  position: relative;
+  float: left;
+  /* opacity: 0.5; */
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 100%;
+  position: relative;
+  background-color: #fff;
+  margin: 12px 8px;
+  cursor: pointer;
+
+  float: left;
+}
+
+.dots {
+  position: absolute;
+  z-index: 100;
+  left: 50%;
+  bottom: 16px;
+}
+
+/* h1 {
+  position: absolute;
+  z-index: 100;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  text-transform: capitalize;
+} */
+
+.titleWrap {
+  height: 30px;
+  position: absolute;
+  z-index: 20;
+  bottom: 50px;
+  left: 50%;
+  overflow-y: hidden;
+}
+
+.title {
+  display: none;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+@media (max-width: 1024px) {
+  .title {
+    display: initial;
   }
-  body {
-    color: white;
-    background: black;
+}
+/* 
+.twitterFollow {
+  padding: 16px;
+  margin-top: 16px;
+  cursor: pointer;
+  border-radius: 500px;
+  text-decoration: none;
+  border: solid 2px white;
+  color: white;
+}
+
+.twitterFollow:hover {
+  background: white;
+  color: #000;
+} */
+
+.hideMe {
+  position: relative;
+  opacity: 0;
+  height: 100%;
+  width: 100%;
+}
+.iconWrap {
+  width: 300px;
+  margin-top: 30px;
+}
+
+@media (min-width: 700px) {
+  .iconWrap {
+    width: 600px;
+  }
+}
+.icon {
+  text-align: center;
+  width: 150px;
+  float: left;
+}
+
+.icon svg {
+  width: 50px;
+  height: 50px;
+  margin: 6px 0;
+  overflow: visible;
+}
+
+@media (max-width: 480px) {
+  section img {
+    max-width: 200px;
+  }
+  p {
+    max-width: 180px;
   }
 }

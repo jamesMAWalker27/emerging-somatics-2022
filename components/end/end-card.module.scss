@@ -1,0 +1,50 @@
+@import '/styles/mixins';
+
+.endContainer {
+  @include fullPageSection;
+  // width: 110vw;
+  display: flex;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  background-color: transparent
+}
+
+.card {
+  @include pageSection;
+  transform: translateX(5%);
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: var(--color-text);
+  color: var(--color-bg);
+}
+
+.linkList {
+  margin-top: var(--space-container-top);
+  height: 62.5vh;
+  width: 50%;
+  list-style: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-direction: column;
+  li a {
+    @include menuText;
+    text-transform: lowercase;
+    font-size: var(--text-menu);
+  }
+  .contactLink {
+    font-size: var(--text-menu-sm);
+    color: var(--color-med);
+    letter-spacing: var(--push-md);
+    transition: var(--transition-primary);
+    &:nth-last-child(2) {
+      margin-top: 2rem;
+    }
+    &:hover {
+      color: var(--white);
+    }
+  }
+}

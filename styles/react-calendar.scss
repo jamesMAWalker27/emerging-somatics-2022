@@ -1,0 +1,193 @@
+.react-calendar {
+  font-family: var(--font-body) !important;
+  abbr,
+  span {
+    font-family: var(--font-body) !important;
+  }
+}
+
+.react-calendar {
+  &__navigation {
+    // position: relative;
+    position: absolute;
+    top: 112px;
+    top: -20%;
+    right: 0;
+    padding: .5rem;
+    transform: translateY(50%);
+    margin-bottom: var(--space-2xl);
+    color: var(--green);
+    border-radius: var(--radius-rounded);
+    border: 1px solid var(--color-calendar-primary-lt);
+    transition: var(--transition-primary);
+    &:hover {
+      background: var(--off-white);
+      border: 1px solid var(--color-calendar-primary);
+    }
+    &__label {
+      pointer-events: none;
+      font-size: var(--text-prose-sm);
+      font-weight: var(--bold);
+      color: var(--calendar-accent);
+      letter-spacing: var(--push-lg);
+      text-transform: uppercase;
+    }
+    &__arrow {
+      font-size: var(--text-prose-em);
+      font-weight: var(--bold);
+      color: var(--calendar-accent);
+      transition: var(--transition-primary);
+      &:hover {
+        transform: scale(1.15);
+        color: var(--color-calendar-secondary);
+      }
+    }
+    &__next-button {
+    }
+    &__prev-button {
+    }
+    &__prev2-button,
+    &__next2-button {
+      display: none;
+    }
+    @media (max-width: 1024px) {
+    }
+  }
+  @media (max-width: 1024px) {
+  }
+}
+
+.react-calendar {
+  &__viewContainer {
+  }
+  &__month-view {
+    &__weekdays {
+    }
+    &__weekdays__weekday {
+      padding: var(--space-lg);
+      text-align: center;
+      font-weight: var(--bold);
+      color: var(--color-calendar-secondary);
+      abbr {
+        text-decoration: none !important;
+      }
+    }
+    &__days {
+    }
+    &__days__day {
+      position: relative;
+      cursor: pointer;
+      padding: var(--space-2xl) var(--space-lg);
+      // margin: 0 2px;
+      color: var(--color-med);
+      font-size: var(--text-lg);
+      letter-spacing: var(--push-sm);
+      transition: var(--transition-primary);
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      &:hover {
+        border: 1px solid var(--color-calendar-primary-lt);
+      
+      }
+      &:focus,
+      &:focus-within {
+        font-weight: var(--bold);
+        color: var(--color-calendar-primary);
+        background-color: var(--color-calendar-primary-lt);
+      }
+      &.selected {
+        color: var(--primary);
+        background-color: var(--primary-tr);
+        font-weight: var(--bold);
+      }
+      &.NA {
+        text-decoration: line-through;
+        color: var(--calendar-accent);
+        opacity: 0.6;
+        font-weight: var(--body);
+        &:hover {
+          background-color: transparent;
+          opacity: 0.4;
+        }
+      }
+      @media (max-width: 1024px) {
+        font-size: var(--text-ml);
+      }
+    }
+  }
+}
+
+// #mobile-calendar {
+//   .react-calendar {
+//     margin: var(--vp-md) 0;
+//     padding: var(--vp-md) 0;
+//     background-color: var(--primary-tr);
+//     & > * {
+//     }
+//     &__navigation {
+//       opacity: 0.2;
+//       &__next-button,
+//       &__next2-button,
+//       &__prev-button,
+//       &__prev2-button {
+//         display: none;
+//       }
+//     }
+//     &__navigation__label {
+//       // ...lay out the months laterally
+//       display: flex;
+//       align-items: center;
+//       justify-content: center;
+//       font-family: var(--font-body);
+//     }
+//     &__month-view__weekdays {
+//       display: none !important;
+//     }
+//     &__month-view__days {
+//       align-items: center;
+//       justify-content: flex-start;
+//       flex-wrap: nowrap !important;
+//       font-family: var(--font-body);
+//       overflow-y: visible !important;
+//       overflow: visible;
+//       overflow-x: scroll;
+//       &__day {
+//         position: relative;
+//         flex: unset;
+//         width: 20px;
+//         color: var(--white);
+//         overflow: visible;
+//         &:focus,
+//         &:focus-within {
+//           &::after {
+//             opacity: 1;
+//           }
+//         }
+//         &::after {
+//           z-index: -1;
+//           opacity: 0;
+//           content: "";
+//           position: absolute;
+//           top: 50%;
+//           left: 50%;
+//           transform: translate(-50%, -50%);
+//           height: 45px;
+//           width: 45px;
+//           border-radius: var(--radius-rounded);
+//           background-color: var(--primary);
+//         }
+//       }
+//     }
+//     &__tile,
+//     &__tile--active,
+//     &__tile--range,
+//     &__tile--rangeStart,
+//     &__tile--rangeEnd,
+//     &__month-view__days__day {
+//       overflow: visible !important;
+//       abbr {
+//         overflow: visible !important;
+//       }
+//     }
+//   }
+// }

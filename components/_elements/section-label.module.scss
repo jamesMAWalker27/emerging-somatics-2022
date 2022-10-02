@@ -1,0 +1,12 @@
+@import '/styles/mixins';
+
+.label {
+  @include sectionLabel;
+  z-index: -1;
+  position: absolute;
+  top: 75%;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 1 !important;
+}

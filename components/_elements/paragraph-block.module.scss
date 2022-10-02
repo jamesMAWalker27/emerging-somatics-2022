@@ -1,0 +1,82 @@
+@import "/styles/mixins";
+
+.container {
+  width: 100%;
+  height: 85vh;
+  margin-top: var(--space-container-top);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: visible;
+  button {
+    justify-self: flex-start;
+  }
+  @media (max-width: 1024px) {
+    position: relative;
+    height: var(--mobile-card-height);
+    width: var(--mobile-card-width);
+    background-color: var(--color-bg);
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--color-text);
+    text-overflow: ellipsis;
+    overflow: hidden;
+     button {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background-color: var(--color-bg);
+      width: var(--mobile-card-width);
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      border: none;
+      border-top: 2px solid var(--text-color) !important;
+      margin: 0;
+    }
+  }
+}
+
+.innerWrap {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  @media (max-width: 1024px) {
+    width: 85%;
+    height: var(--mobile-card-height);
+    text-overflow: ellipsis;
+  }
+}
+
+.header {
+  @include header;
+  font-size: 40px;
+  pointer-events: none;
+  margin: 0;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  svg {
+    margin-right: 1rem;
+  }
+}
+
+.paragraph {
+  @include prose;
+  span {
+    line-height: 135%;
+  }
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  span {
+    margin-bottom: 1vh;
+  }
+  @media (max-width: 1024px) {
+    text-overflow: ellipsis;
+  }
+}
