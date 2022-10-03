@@ -85,8 +85,8 @@ const Home = () => {
       if (portalOpen) return
 
       // dragging the panels
-      if (this.id === 'dragger') {
-      } else {
+      // if (this.id === 'dragger') {
+      // } else {
         if (gsap.isTweening(container)) {
           return
         }
@@ -94,18 +94,6 @@ const Home = () => {
         if (e.target.dataset.action === 'slide-link') {
           activeSlide = Number(e.target.id) + 1
         }
-        // // menu click
-        // if ([...e.target.classList].includes('end-link')) {
-        //   activeSlide = Number(e.target.id) + 1
-        // }
-        // // end card click
-        // if ([...e.target.classList].includes('menu-link')) {
-        //   activeSlide = Number(e.target.id) + 1
-        // }
-        // // bullet click
-        // if ([...e.target.classList].includes('bullet')) {
-        //   activeSlide = Number(e.target.id) + 1
-        // }
         // mobile swipe
         if (e.absX) {
           activeSlide =
@@ -116,7 +104,7 @@ const Home = () => {
           if (e.id === 'menu-modal') return
           activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1)
         }
-      }
+      // }
       // make sure we're not past the end or beginning slide
       activeSlide = activeSlide < 0 ? 0 : activeSlide
       activeSlide =

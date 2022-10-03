@@ -210,6 +210,7 @@ export const Calendar = ({ setBgVideo }) => {
   }
 
   const handleModalOpen = () => {
+    // TODO: Animate modal in/out
     setModalOpen(true)
   }
 

@@ -17,10 +17,12 @@ import {
   bg,
 } from './overview.module.scss'
 
-const ExpanderContent = ({ closeModal, slideAnim }) => {
+const ExpanderContent = ({ closeModal, slideFn }) => {
   const { push } = useRouter()
 
   useEffect(() => {
+    // TODO: Use slideFn to scroll to self before closing.
+
     const openTL = gsap.timeline()
 
     openTL
