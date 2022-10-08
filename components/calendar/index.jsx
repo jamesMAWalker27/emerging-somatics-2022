@@ -47,19 +47,18 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
 
   // make modal draggable
   useEffect(() => {
+    gsap.registerPlugin(Draggable)
+    gsap.set('#modal', { x, y })
+    const dragModal = Draggable.create('#modal', {
+      type: 'x,y',
+      inertia: true,
+      bounds: document.querySelector('#calendar'),
+      dragClickables: true,
+      allowEventDefault: true,
+    })
     if (isMobile) {
+      dragModal[0].kill()
       gsap.set('#modal', { x: 0, y: 0 })
-      return
-    } else {
-      gsap.registerPlugin(Draggable)
-      gsap.set('#modal', { x, y })
-      Draggable.create('#modal', {
-        type: 'x,y',
-        inertia: true,
-        bounds: document.querySelector('#calendar'),
-        dragClickables: true,
-        allowEventDefault: true,
-      })
     }
   }, [isMobile])
 
@@ -206,7 +205,7 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
           </div>
         </div>
       </div>
-      <div className={shade} id='modal-shade'/>
+      <div className={shade} id='modal-shade' />
     </>
   )
 }

@@ -63,10 +63,6 @@ const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
     <section className={expanderContainer}>
       <div className={expanderContent} id='expander-content'>
         {[main, secondary].map((blc, idx) => {
-          console.log('idx: ', idx);
-          if (idx === 0) {
-            console.log('blc', blc)
-          }
           return (
             <ParagraphBlock
               key={`abt-${idx + 1}`}
