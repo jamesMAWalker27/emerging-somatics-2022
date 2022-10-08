@@ -28,7 +28,6 @@ import {
   pseudoSelect,
   btnSubmit,
 } from './calendar.module.scss'
-import { createPortal } from 'react-dom'
 
 const CalendarModal = ({ position: [x, y], close, date }) => {
   const [isMobile, setIsMobile] = useState(false)
@@ -75,12 +74,24 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
     )
   }, [])
 
+  
   const handleClose = () => {
     gsap.to('#modal, #modal-shade', {
       opacity: 0,
       onComplete: close,
     })
   }
+
+  // close modal with esc key
+  useEffect(() => {
+    const close = (e) => {
+      if (e.keyCode === 27) {
+        handleClose()
+      }
+    }
+    window.addEventListener('keydown', close)
+    return () => window.removeEventListener('keydown', close)
+  })
 
   const handleSetTime = (idx) => {
     setSelectedTime(idx)
@@ -124,7 +135,6 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
           <CloseBtn />
         </span>
         <div className={times}>
-          {/* <h6>Choose a Time</h6> */}
           <div className={scrollWrap}>
             <ul className={timesList} data-action={'no-scroll'}>
               <span>{isMobile ? '▸' : '▾'}</span>

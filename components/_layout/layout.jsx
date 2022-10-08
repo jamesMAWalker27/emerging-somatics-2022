@@ -22,7 +22,7 @@ export const Layout = ({ bgVideo, slideFn }) => {
         <FBIcon />
       </div>
       <div className={bg}>
-        {/* <video
+        <video
           id='video-main'
           src={`https://res.cloudinary.com/jameswalker-work/video/upload/v1662286408/emerging/ferns_exk1af.mp4`}
           autoPlay
@@ -46,7 +46,7 @@ export const Layout = ({ bgVideo, slideFn }) => {
           loop
           muted
           style={{ opacity: bgVideo === 'end' ? 1 : 0 }}
-        /> */}
+        />
       </div>
     </>
   )

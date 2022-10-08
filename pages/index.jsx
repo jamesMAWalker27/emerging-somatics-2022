@@ -7,6 +7,7 @@ import { SECTION_DATA } from '/components/_shared-data/section-data.js'
 import { imgData, baseUrlMp4 } from '/lib/cloudinary.js'
 
 import { Layout } from '../components/_layout/layout'
+import { useInView } from 'react-intersection-observer'
 
 const GAP_DIST = 90 / (SECTION_DATA.length - 1)
 const MARKER_RADIUS = 24
@@ -198,6 +199,7 @@ const Home = () => {
       <div id='masterWrap' {...swipeHandlers}>
         <div id='panelWrap' ref={container}>
           {SECTION_DATA.map(({ _, Component }, idx) => {
+
             return (
               <section key={idx} ref={(el) => (slidesArr.current[idx] = el)}>
                 <Component {...sectionProps} inViewRef={null} />

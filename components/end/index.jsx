@@ -1,5 +1,6 @@
-import React from 'react'
-import Link from 'next/link'
+import React, { useEffect } from 'react'
+import { useInView } from 'react-intersection-observer';
+import { fadeIntoView } from '../../animation/section-animations';
 
 import { contactInfo, pageLinks } from '../_shared-data/menu-data'
 
@@ -12,12 +13,19 @@ import {
 } from './end-card.module.scss'
 
 export const EndCard = ({ slideFn }) => {
+  const [ref, inView] = useInView({ threshold: .8 })
+
   const handleLink = (e) => {
     slideFn.current(e)
   }
 
+  useEffect(() => {
+    fadeIntoView(inView, )
+  }, [inView])
+  
+
   return (
-    <div className={endContainer}>
+    <div className={endContainer} id='end-container'>
       <footer className={card}>
         <ul className={linkList}>
           {pageLinks.map(({ id, title, link }) => {

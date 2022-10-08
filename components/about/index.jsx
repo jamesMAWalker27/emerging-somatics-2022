@@ -9,6 +9,8 @@ import { ABOUT_CONTENT } from './about.text'
 import { ParagraphBlock } from '../_elements/paragraph-block'
 import { ArrowIcon } from '../_svg/collapse'
 
+import { fadeIntoView } from '../../animation/section-animations'
+
 import {
   aboutContainer,
   expanderContainer,
@@ -34,10 +36,10 @@ const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
       .fromTo(
         `.${bg}`,
         {
-          opacity: 0
+          opacity: 0,
         },
         {
-          opacity: 1
+          opacity: 1,
         }
       )
       .fromTo(
@@ -56,7 +58,7 @@ const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
     slideFn.current(e)
     setTimeout(() => {
       closeModal()
-    }, 500);
+    }, 500)
   }
 
   return (
@@ -90,7 +92,12 @@ const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
         </div>
       </div>
       <div className={bg} />
-      <button className={btnCollapse} onClick={handleCloseModal} data-action={'slide-link'} id='3'>
+      <button
+        className={btnCollapse}
+        onClick={handleCloseModal}
+        data-action={'slide-link'}
+        id='3'
+      >
         <span>Collapse</span>
         <ArrowIcon />
       </button>
@@ -99,7 +106,7 @@ const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
 }
 
 export const About = ({ toggleProgressVis, slideFn }) => {
-  const [aboutRef, aboutInView] = useInView({ threshold: 0.2 })
+  const [aboutRef, aboutInView] = useInView({ threshold: 0.5 })
   const [expanded, setExpanded] = useState(false)
 
   const [portal, setPortal] = useState(null)
@@ -122,6 +129,7 @@ export const About = ({ toggleProgressVis, slideFn }) => {
         opacity: 1,
       })
     }
+    fadeIntoView(aboutInView, '#about-container')
   }, [aboutInView])
 
   const toggleExpand = () => {
@@ -145,7 +153,7 @@ export const About = ({ toggleProgressVis, slideFn }) => {
         })
         .to(`.${bg}`, {
           // scaleX: 0,
-          opacity: 0
+          opacity: 0,
         })
     } else {
       toggleExpand()

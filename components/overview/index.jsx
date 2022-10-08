@@ -15,6 +15,7 @@ import {
   btnCollapse,
   bg,
 } from './overview.module.scss'
+import { fadeIntoView } from '../../animation/section-animations'
 
 const ExpanderContent = ({ closeModal, slideFn }) => {
   useEffect(() => {
@@ -85,7 +86,7 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
 }
 
 export const Overview = ({ toggleProgressVis, slideFn }) => {
-  const [ovRef, ovInView] = useInView({ threshold: 0.2 })
+  const [ovRef, ovInView] = useInView({ threshold: 0.8 })
   const [expanded, setExpanded] = useState(false)
   const [portal, setPortal] = useState(null)
 
@@ -107,6 +108,7 @@ export const Overview = ({ toggleProgressVis, slideFn }) => {
         opacity: 1,
       })
     }
+    fadeIntoView(ovInView, '#ov-container')
   }, [ovInView])
 
   const toggleExpand = () => {
@@ -132,7 +134,7 @@ export const Overview = ({ toggleProgressVis, slideFn }) => {
   }
 
   return (
-    <section className={`${overview}`} ref={ovRef}>
+    <section className={`${overview}`} ref={ovRef} id='ov-container'>
       {expanded ? (
         createPortal(
           <ExpanderContent
