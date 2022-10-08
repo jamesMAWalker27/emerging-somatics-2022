@@ -63,14 +63,19 @@ const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
     <section className={expanderContainer}>
       <div className={expanderContent} id='expander-content'>
         {[main, secondary].map((blc, idx) => {
+          console.log('idx: ', idx);
+          if (idx === 0) {
+            console.log('blc', blc)
+          }
           return (
             <ParagraphBlock
               key={`abt-${idx + 1}`}
               header={blc.header}
               text={blc.text}
               btn={idx === 0 ? blc.btnText : null}
-              fadeBtn={idx === 0 ? expanded : null}
+              btnVis={idx === 0 ? true : null}
               gsapId={idx !== 0 ? 'ab-par-block' : null}
+              btnClass={'abt-btn'}
             />
           )
         })}

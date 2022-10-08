@@ -8,23 +8,24 @@ export const OutlineBtn = ({
   action,
   fadeBtn = false,
   noOutline = false,
-  slideFnData={ attr: null, id:null }
+  slideFnData={ attr: null, id:null },
+  gsapClass
 }) => {
   useEffect(() => {
     if (fadeBtn) {
-      gsap.to(`.${btnStyle}`, {
+      gsap.to(`.${gsapClass}`, {
         opacity: 0,
         delay: 0.25,
         duration: 1,
       })
     }
-  }, [])
+  }, [fadeBtn, gsapClass])
 
   const { attr, id } = slideFnData
 
   return (
     <button
-      className={`${btnStyle} ${noOutline && textOnly}`}
+      className={`${btnStyle} ${noOutline ? textOnly : ''} ${gsapClass}`}
       onClick={action}
       data-action={attr}
       id={id}

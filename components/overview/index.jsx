@@ -17,7 +17,6 @@ import {
 } from './overview.module.scss'
 
 const ExpanderContent = ({ closeModal, slideFn }) => {
-
   useEffect(() => {
     // TODO: Use slideFn to scroll to self before closing.
     // TODO: Create mobile config for expander.
@@ -29,10 +28,10 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
         `.${bg}`,
         {
           opacity: 0,
-        },  
+        },
         {
           opacity: 1,
-        } 
+        }
       )
       .fromTo(
         '#ov-par-block, #ov-btn-col',
@@ -66,10 +65,12 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
               key={idx}
               header={oc.header}
               text={oc.text}
-              gsapId={idx !== 0 && 'ov-par-block'}
+              gsapId={idx !== 0 ? 'ov-par-block' : ''}
+              btnClass={idx === 0 ? 'ov-btn' : ''}
               btn={idx === 3 && 'Make an Appointment →'}
               slideFnData={idx === 3 && { attr: 'slide-link', id: 5 }}
               btnAction={idx === 3 && ((e) => closeToAppointments(e))}
+              fadeBtn={false}
             />
           )
         })}
@@ -147,6 +148,7 @@ export const Overview = ({ toggleProgressVis, slideFn }) => {
           btn={OC[0].btnText}
           btnAction={animateToggleExpand}
           btnVis={expanded}
+          btnClass={'ov-btn'}
         />
       )}
     </section>

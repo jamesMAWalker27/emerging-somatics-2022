@@ -19,9 +19,11 @@ export const Introduction = ({ slideFn }) => {
         btn={`Make an Appointment →`}
         btnAction={handleBtnClick}
         gsapId='intro-par'
+        btnClass='intro-btn'
         slideFnData={{ attr: 'slide-link', id: 5 }}
         labelText={'Welcome'}
         labelId={'intro-label'}
+        fadeBtn={false}
       />
     </div>
   )
