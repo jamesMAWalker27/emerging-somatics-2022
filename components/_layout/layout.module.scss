@@ -5,7 +5,8 @@
   height: 100%;
   width: 100%;
   isolation: isolate;
-   &::before {
+  background-color: var(--color-accent-dark);
+  &::before {
     z-index: 2;
     content: "";
     position: absolute;
@@ -15,6 +16,9 @@
     height: 100%;
     width: 100%;
     background-color: var(--black-fade-20);
+    @media (max-width: 1024px) {
+      background-color: var(--black-fade-40);
+    }
   }
   video {
     z-index: 1;
@@ -59,5 +63,8 @@
   path {
     stroke-width: 0.5px;
     transition: var(--transition-primary);
+  }
+  @media (max-width: 1024px) {
+    display: none;
   }
 }

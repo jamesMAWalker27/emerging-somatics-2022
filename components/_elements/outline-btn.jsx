@@ -8,6 +8,7 @@ export const OutlineBtn = ({
   action,
   fadeBtn = false,
   noOutline = false,
+  slideFnData={ attr: null, id:null }
 }) => {
   useEffect(() => {
     if (fadeBtn) {
@@ -19,8 +20,15 @@ export const OutlineBtn = ({
     }
   }, [])
 
+  const { attr, id } = slideFnData
+
   return (
-    <button className={`${btnStyle} ${noOutline && textOnly}`} onClick={action}>
+    <button
+      className={`${btnStyle} ${noOutline && textOnly}`}
+      onClick={action}
+      data-action={attr}
+      id={id}
+    >
       {text}
     </button>
   )

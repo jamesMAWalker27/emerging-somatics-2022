@@ -65,21 +65,21 @@ section {
   bottom: 16px;
 }
 
-/* h1 {
+h1 {
   position: absolute;
   z-index: 100;
   font-size: 18px;
   text-align: center;
   width: 100%;
   text-transform: capitalize;
-} */
+}
 
 .titleWrap {
   height: 30px;
-  position: absolute;
+  position: fixed;
   z-index: 20;
-  bottom: 50px;
-  left: 50%;
+  bottom: 2.5%;
+  right: 0;
   overflow-y: hidden;
 }
 
@@ -91,24 +91,12 @@ section {
 }
 @media (max-width: 1024px) {
   .title {
-    display: initial;
+    color: var(--color-med);
+    text-transform: lowercase;
+    font-weight: var(--bold);
+    display: block;
   }
 }
-/* 
-.twitterFollow {
-  padding: 16px;
-  margin-top: 16px;
-  cursor: pointer;
-  border-radius: 500px;
-  text-decoration: none;
-  border: solid 2px white;
-  color: white;
-}
-
-.twitterFollow:hover {
-  background: white;
-  color: #000;
-} */
 
 .hideMe {
   position: relative;
@@ -137,13 +125,4 @@ section {
   height: 50px;
   margin: 6px 0;
   overflow: visible;
-}
-
-@media (max-width: 480px) {
-  section img {
-    max-width: 200px;
-  }
-  p {
-    max-width: 180px;
-  }
 }

@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { useRouter } from 'next/router'
 import { gsap } from 'gsap'
 import { useInView } from 'react-intersection-observer'
 
@@ -11,17 +10,17 @@ import { ArrowIcon } from '../_svg/collapse'
 
 import {
   overview,
-  content,
+  expanderContent,
   blocks,
   btnCollapse,
   bg,
 } from './overview.module.scss'
 
 const ExpanderContent = ({ closeModal, slideFn }) => {
-  const { push } = useRouter()
 
   useEffect(() => {
     // TODO: Use slideFn to scroll to self before closing.
+    // TODO: Create mobile config for expander.
 
     const openTL = gsap.timeline()
 
@@ -29,11 +28,11 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
       .fromTo(
         `.${bg}`,
         {
-          scaleX: 0,
-        },
+          opacity: 0,
+        },  
         {
-          scaleX: 1,
-        }
+          opacity: 1,
+        } 
       )
       .fromTo(
         '#ov-par-block, #ov-btn-col',
@@ -46,7 +45,11 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
       )
   }, [])
 
-  const closeToAppointments = () => {
+  const closeToAppointments = (e) => {
+    closeModal()
+    setTimeout(() => {
+      slideFn.current(e)
+    }, 500)
     // animate closed & use slideFn.current to scroll to calendar
   }
 
@@ -55,7 +58,7 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
   */
 
   return (
-    <section className={content}>
+    <section className={expanderContent} id='expander'>
       <div className={blocks} id='text-blocks'>
         {OVERVIEW_CONTENT.map((oc, idx) => {
           return (
@@ -65,7 +68,8 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
               text={oc.text}
               gsapId={idx !== 0 && 'ov-par-block'}
               btn={idx === 3 && 'Make an Appointment →'}
-              btnAction={idx === 3 && (() => push('/#calendar'))}
+              slideFnData={idx === 3 && { attr: 'slide-link', id: 5 }}
+              btnAction={idx === 3 && ((e) => closeToAppointments(e))}
             />
           )
         })}
@@ -79,7 +83,7 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
   )
 }
 
-export const Overview = ({ toggleProgressVis, slideAnim }) => {
+export const Overview = ({ toggleProgressVis, slideFn }) => {
   const [ovRef, ovInView] = useInView({ threshold: 0.2 })
   const [expanded, setExpanded] = useState(false)
   const [portal, setPortal] = useState(null)
@@ -118,13 +122,9 @@ export const Overview = ({ toggleProgressVis, slideAnim }) => {
     toggleProgressVis()
 
     if (isClosing) {
-      closeTL
-        .to('#ov-par-block, #ov-btn-col ', {
-          opacity: 0,
-        })
-        .to(`.${bg}`, {
-          scaleX: 0,
-        })
+      closeTL.to('#expander', {
+        opacity: 0,
+      })
     } else {
       toggleExpand()
     }
@@ -136,7 +136,7 @@ export const Overview = ({ toggleProgressVis, slideAnim }) => {
         createPortal(
           <ExpanderContent
             closeModal={animateToggleExpand}
-            slideAnim={slideAnim}
+            slideFn={slideFn}
           />,
           portal
         )
@@ -146,6 +146,7 @@ export const Overview = ({ toggleProgressVis, slideAnim }) => {
           header={OC[0].header}
           btn={OC[0].btnText}
           btnAction={animateToggleExpand}
+          btnVis={expanded}
         />
       )}
     </section>

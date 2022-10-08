@@ -13,13 +13,21 @@
     top: 112px;
     top: -20%;
     right: 0;
-    padding: .5rem;
+    padding: 0.5rem;
     transform: translateY(50%);
     margin-bottom: var(--space-2xl);
     color: var(--green);
     border-radius: var(--radius-rounded);
     border: 1px solid var(--color-calendar-primary-lt);
     transition: var(--transition-primary);
+    @media (max-width: 1024px) {
+      border: none;
+      right: unset;
+      left: 5%;
+      top: -5%;
+      transform: unset;
+      padding: 0;
+    }
     &:hover {
       background: var(--off-white);
       border: 1px solid var(--color-calendar-primary);
@@ -71,14 +79,19 @@
       abbr {
         text-decoration: none !important;
       }
+      @media (max-width: 1024px) {
+        font-size: var(--text-prose-sm);
+        font-size: 16px;
+      }
     }
     &__days {
     }
     &__days__day {
+      isolation: isolate;
       position: relative;
       cursor: pointer;
       padding: var(--space-2xl) var(--space-lg);
-      // margin: 0 2px;
+      padding: var(--space-lg) var(--space-lg);
       color: var(--color-med);
       font-size: var(--text-lg);
       letter-spacing: var(--push-sm);
@@ -87,18 +100,27 @@
       border: 1px solid transparent;
       &:hover {
         border: 1px solid var(--color-calendar-primary-lt);
-      
       }
       &:focus,
       &:focus-within {
-        font-weight: var(--bold);
-        color: var(--color-calendar-primary);
-        background-color: var(--color-calendar-primary-lt);
+        &::after {
+          opacity: 0.5;
+        }
       }
-      &.selected {
+      &::after {
+        z-index: -1;
+        position: absolute;
+        content: "";
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 100%;
+        width: 100%;
         color: var(--primary);
-        background-color: var(--primary-tr);
-        font-weight: var(--bold);
+        border-radius: var(--radius-sm);
+        background-color: var(--color-calendar-primary-lt);
+        opacity: 0;
+        transition: var(--transition-primary);
       }
       &.NA {
         text-decoration: line-through;
@@ -111,83 +133,8 @@
         }
       }
       @media (max-width: 1024px) {
-        font-size: var(--text-ml);
+        font-size: var(--text-prose-sm);
       }
     }
   }
 }
-
-// #mobile-calendar {
-//   .react-calendar {
-//     margin: var(--vp-md) 0;
-//     padding: var(--vp-md) 0;
-//     background-color: var(--primary-tr);
-//     & > * {
-//     }
-//     &__navigation {
-//       opacity: 0.2;
-//       &__next-button,
-//       &__next2-button,
-//       &__prev-button,
-//       &__prev2-button {
-//         display: none;
-//       }
-//     }
-//     &__navigation__label {
-//       // ...lay out the months laterally
-//       display: flex;
-//       align-items: center;
-//       justify-content: center;
-//       font-family: var(--font-body);
-//     }
-//     &__month-view__weekdays {
-//       display: none !important;
-//     }
-//     &__month-view__days {
-//       align-items: center;
-//       justify-content: flex-start;
-//       flex-wrap: nowrap !important;
-//       font-family: var(--font-body);
-//       overflow-y: visible !important;
-//       overflow: visible;
-//       overflow-x: scroll;
-//       &__day {
-//         position: relative;
-//         flex: unset;
-//         width: 20px;
-//         color: var(--white);
-//         overflow: visible;
-//         &:focus,
-//         &:focus-within {
-//           &::after {
-//             opacity: 1;
-//           }
-//         }
-//         &::after {
-//           z-index: -1;
-//           opacity: 0;
-//           content: "";
-//           position: absolute;
-//           top: 50%;
-//           left: 50%;
-//           transform: translate(-50%, -50%);
-//           height: 45px;
-//           width: 45px;
-//           border-radius: var(--radius-rounded);
-//           background-color: var(--primary);
-//         }
-//       }
-//     }
-//     &__tile,
-//     &__tile--active,
-//     &__tile--range,
-//     &__tile--rangeStart,
-//     &__tile--rangeEnd,
-//     &__month-view__days__day {
-//       overflow: visible !important;
-//       abbr {
-//         overflow: visible !important;
-//       }
-//     }
-//   }
-// }

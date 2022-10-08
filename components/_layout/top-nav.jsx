@@ -23,11 +23,18 @@ export const TopNav = () => {
       .to('#menu-modal', {
         opacity: 0,
       }, "-=.4")
+      .to('#menu-shade', {
+        opacity: 0,
+      }, "-=.4")
       .to('#menu-modal', {
         visibility: 'hidden',
         onComplete: setMenuOpen(false),
       }, "-=.1")
     } else {
+      gsap.to('#menu-shade', {
+        opacity: 1,
+        visibility: 'visible',
+      })
       gsap.to('#menu-modal', {
         opacity: 1,
         visibility: 'visible',
@@ -53,19 +60,3 @@ export const TopNav = () => {
     </nav>
   )
 }
-// export const TopNavBG = () => {
-//   return (
-//     <nav className={`${bg} ${navContainer}`}>
-//       <Link href='#hero'>
-//         <a className={logoWrap}>
-//           <Logo />
-//         </a>
-//       </Link>
-//       <button className={btnMenu}>
-//         <span />
-//         <span />
-//         <span />
-//       </button>
-//     </nav>
-//   )
-// }

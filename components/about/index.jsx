@@ -11,19 +11,21 @@ import { ArrowIcon } from '../_svg/collapse'
 
 import {
   aboutContainer,
+  expanderContainer,
+  expanderContent,
   content,
   bg,
   btnCollapse,
-  expContent,
   list as listStyle,
   endList as endListStyle,
   closing as closingStyle,
 } from './about.module.scss'
 
 const SECTION_LEFT = 5011
-const ANIMATE_IDS = '#ab-par-block, #ab-btn-col, #list, #end-list, #close'
+const ANIMATE_IDS = '#ab-par-block, #list, #end-list, #close, #expander-content'
+// const ANIMATE_IDS = '#ab-par-block, #3, #list, #end-list, #close, #expander-content'
 
-const ExpanderContent = ({ closeModal, expanded }) => {
+const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
   const { main, secondary, list, endList, closing } = ABOUT_CONTENT
 
   useEffect(() => {
@@ -32,10 +34,10 @@ const ExpanderContent = ({ closeModal, expanded }) => {
       .fromTo(
         `.${bg}`,
         {
-          scaleX: 0,
+          opacity: 0
         },
         {
-          scaleX: 1,
+          opacity: 1
         }
       )
       .fromTo(
@@ -50,29 +52,36 @@ const ExpanderContent = ({ closeModal, expanded }) => {
       )
   }, [])
 
+  const handleCloseModal = (e) => {
+    slideFn.current(e)
+    setTimeout(() => {
+      closeModal()
+    }, 500);
+  }
+
   return (
-    <section className={content}>
-      <div className={expContent}>
+    <section className={expanderContainer}>
+      <div className={expanderContent} id='expander-content'>
         {[main, secondary].map((blc, idx) => {
           return (
             <ParagraphBlock
               key={`abt-${idx + 1}`}
               header={blc.header}
               text={blc.text}
-              btn={idx === 0 && blc.btnText}
-              fadeBtn={idx === 0 && expanded}
-              gsapId={idx !== 0 && 'ab-par-block'}
+              btn={idx === 0 ? blc.btnText : null}
+              fadeBtn={idx === 0 ? expanded : null}
+              gsapId={idx !== 0 ? 'ab-par-block' : null}
             />
           )
         })}
         <ul className={listStyle} id='list'>
-          {list.map((itm) => {
-            return <li key={itm}>{itm}</li>
+          {list.map((itm, idx) => {
+            return <li key={idx}>{itm}</li>
           })}
         </ul>
         <ul className={endListStyle} id='end-list'>
-          {endList.map((itm) => {
-            return <li key={itm}>{itm}</li>
+          {endList.map((itm, idx) => {
+            return <li key={idx}>{itm}</li>
           })}
         </ul>
         <div className={closingStyle} id='close'>
@@ -80,7 +89,7 @@ const ExpanderContent = ({ closeModal, expanded }) => {
         </div>
       </div>
       <div className={bg} />
-      <button className={btnCollapse} onClick={closeModal} id='ab-btn-col'>
+      <button className={btnCollapse} onClick={handleCloseModal} data-action={'slide-link'} id='3'>
         <span>Collapse</span>
         <ArrowIcon />
       </button>
@@ -88,7 +97,7 @@ const ExpanderContent = ({ closeModal, expanded }) => {
   )
 }
 
-export const About = ({ toggleProgressVis }) => {
+export const About = ({ toggleProgressVis, slideFn }) => {
   const [aboutRef, aboutInView] = useInView({ threshold: 0.2 })
   const [expanded, setExpanded] = useState(false)
 
@@ -134,7 +143,8 @@ export const About = ({ toggleProgressVis }) => {
           opacity: 0,
         })
         .to(`.${bg}`, {
-          scaleX: 0,
+          // scaleX: 0,
+          opacity: 0
         })
     } else {
       toggleExpand()
@@ -148,6 +158,7 @@ export const About = ({ toggleProgressVis }) => {
           <ExpanderContent
             closeModal={animateToggleExpand}
             expanded={expanded}
+            slideFn={slideFn}
           />,
           portal
         )
@@ -157,6 +168,7 @@ export const About = ({ toggleProgressVis }) => {
           header={main.header}
           btn={main.btnText}
           btnAction={animateToggleExpand}
+          btnVis={expanded}
         />
       )}
     </div>

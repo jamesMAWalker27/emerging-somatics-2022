@@ -9,9 +9,10 @@
   justify-content: center;
 }
 
-.content {
+.expanderContainer {
   position: relative;
   height: auto;
+  padding-bottom: 10vh;
   min-height: 150vh;
   width: 100vw;
   isolation: isolate;
@@ -19,57 +20,19 @@
   align-items: flex-start;
   justify-content: center;
   border-bottom: 15px solid var(--grey-05);
-  .btnCollapse {
-    z-index: 2;
-    position: fixed;
-    bottom: 3vw;
-    left: 3vw;
-    &:hover {
-      span {
-        opacity: 1;
-        top: -140%;
-      }
-    }
-    span {
-      opacity: 0;
-      position: absolute;
-      left: -130%;
-      top: -100%;
-      transform: translateY(-200%) rotate(-90deg);
-      text-transform: uppercase;
-      font-family: var(--font-body);
-      font-size: 24px;
-      font-weight: var(--light);
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--color-med);
-      transition: var(--transition-3-smooth);
-    }
-  }
-  .bg {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background-color: var(--white);
-  }
 }
-// https://res.cloudinary.com/jameswalker-work/video/upload/f_auto,q_auto:best/v1663493648/emerging/about_gmtfyh.mp4
 
-.expContent {
+.expanderContent {
   z-index: 2;
   margin-left: -0.5%;
   height: 100%;
+  padding-bottom: 10vh;
   width: 100%;
   display: grid;
   align-items: flex-start;
   justify-content: center;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 65vh repeat(3, auto);
-  div {
-  }
   div:nth-child(2) {
     transform: translateX(-25%);
     div {
@@ -79,6 +42,38 @@
       }
     }
   }
+  @media (max-width: 1024px) {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    div {
+      height: auto !important;
+      width: var(--mobile-card-width);
+      transform: unset !important;
+      border: none;
+      div {
+        height: auto;
+        width: 100% !important;
+      }
+    }
+  }
+}
+
+.btnCollapse {
+  z-index: 2;
+  @include btnCollapse
+}
+
+.bg {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--white);
 }
 
 @mixin pageCenter {
@@ -86,10 +81,19 @@
   margin-left: 22.5vw;
   width: min(1200px, 55vw);
   padding: 0;
+  @media (max-width: 1024px) {
+    width: var(--mobile-card-width);
+    margin: 0;
+  }
 }
 
 .list {
   @include pageCenter;
+  position: relative;
+  list-style: circle;
+  padding-top: var(--space-container-top);
+  padding-top: 5vh;
+  padding-bottom: 10vh;
   li {
     font-family: var(--font-body);
     font-size: var(--text-prose-em);
@@ -97,6 +101,16 @@
     font-style: italic;
     letter-spacing: var(--push-ms);
     margin-bottom: 48px;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: calc(100% - 5vh);
+    background-color: var(--grey-fade-10);
   }
 }
 
@@ -132,8 +146,8 @@
   }
   &::after {
     position: absolute;
-    content: '';
-    height: .5px;
+    content: "";
+    height: 0.5px;
     width: 50px;
     bottom: -5vh;
     background-color: var(--color-med);

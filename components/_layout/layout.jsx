@@ -7,12 +7,14 @@ import { MenuModal } from './menu'
 
 import { bg, socials } from './layout.module.scss'
 import { TopNav } from './top-nav'
+import { MobileNav } from './mobile-nav'
 
 export const Layout = ({ bgVideo, slideFn }) => {
   return (
     <>
       <TopNav />
       <div id='portal' />
+      <MobileNav />
       <MenuModal slideFn={slideFn} />
       <ProgressBar slideFn={slideFn} />
       <div className={socials}>
@@ -20,7 +22,7 @@ export const Layout = ({ bgVideo, slideFn }) => {
         <FBIcon />
       </div>
       <div className={bg}>
-        <video
+        {/* <video
           id='video-main'
           src={`https://res.cloudinary.com/jameswalker-work/video/upload/v1662286408/emerging/ferns_exk1af.mp4`}
           autoPlay
@@ -44,7 +46,7 @@ export const Layout = ({ bgVideo, slideFn }) => {
           loop
           muted
           style={{ opacity: bgVideo === 'end' ? 1 : 0 }}
-        />
+        /> */}
       </div>
     </>
   )

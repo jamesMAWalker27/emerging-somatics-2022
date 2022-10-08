@@ -9,8 +9,21 @@
   justify-content: center;
 }
 
-.content {
+.expanderContent {
   isolation: isolate;
+
+  .btnCollapse {
+    z-index: 99;
+  }
+  .blocks {
+    z-index: 2;
+  }
+  .bg {
+    z-index: 1;
+  }
+}
+
+.expanderContent {
   position: relative;
   display: flex;
   align-items: center;
@@ -18,16 +31,14 @@
   height: auto;
   height: 210vh;
   width: 100vw;
-  .blocks {
-    z-index: 2;
-    height: 100%;
-    width: 100%;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+  @media (max-width: 1024px) {
+    padding-bottom: 10vh;
+    height: 405vh;
+    height: min-content;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
+  // ↓ Only ParagraphBlocks that appear on expand.
   div:not(:first-child, .bg, .btnCollapse) {
     position: relative;
     margin-top: 0;
@@ -35,6 +46,14 @@
     width: 100%;
     align-items: center;
     justify-content: center;
+    @media (max-width: 1024px) {
+      h4 {
+        color: var(--color-accent-dark);
+      }
+      path {
+        fill: var(--color-accent-dark);
+      }
+    }
     &:hover {
       &::after {
         opacity: 0.5;
@@ -48,7 +67,7 @@
     }
     &::after {
       z-index: -1;
-      content: '';
+      content: "";
       position: absolute;
       top: 50%;
       left: 50%;
@@ -58,54 +77,78 @@
       background-color: var(--color-calendar-primary-lt);
       opacity: 0;
       transition: var(--transition-primary);
-    }
-  }
-  div:nth-child(3),
-  div:nth-child(4) {
-    // transform: translateY(-45%);
-    height: unset;
-  }
-  .btnCollapse {
-    z-index: 2;
-    position: fixed;
-    bottom: 3vw;
-    left: 3vw;
-    &:hover {
-      span {
-        opacity: 1;
-        top: -140%;
+      @media (max-width: 1024px) {
+        display: none;
       }
     }
-    span {
-      opacity: 0;
-      position: absolute;
-      left: -130%;
-      top: -100%;
-      transform: translateY(-200%) rotate(-90deg);
-      text-transform: uppercase;
-      font-family: var(--font-body);
-      font-size: 24px;
-      font-weight: var(--light);
-      letter-spacing: 5px;
-      text-transform: uppercase;
-      color: var(--color-med);
-      transition: var(--transition-3-smooth);
-    }
   }
-  .bg {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;  
-    background-color: var(--white);
+  // ↓ 2 ParagraphBlocks that appear off screen
+  div:nth-child(3),
+  div:nth-child(4) {
+    height: unset;
   }
 }
 
+.btnCollapse {
+  @include btnCollapse;
+}
 
-.test {
-  height: 100px;
-  width: 100px;
-  background-color: teal;
+.blocks {
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  @media (max-width: 1024px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+    // ↓ All ParagraphBlocks
+    div {
+      justify-self: center;
+      align-self: center;
+      border: none;
+      height: auto;
+      overflow: visible;
+      margin-bottom: var(--space-4xl);
+      width: var(--mobile-card-width);
+    }
+    // ↓ Only ParagraphBlock with button
+    div:has(button) {
+      padding-bottom: var(--space-8xl);
+      button {
+        margin: var(--content-margin);
+        margin-top: 48px;
+        align-self: center;
+        background-color: transparent;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--color-text);
+        &:active,
+        &:hover,
+        &:focus,
+        &:focus-within {
+          color: var(--color-text);
+          background-color: var(
+            --color-calendar-primary-lt
+          );
+        }
+      }
+    }
+  }
+}
+
+.bg {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--white);
 }

@@ -23,13 +23,14 @@ const Home = () => {
 
   const swipeHandlers = useSwipeable({
     onSwiped: (e) => {
-      slideFn.current(e)``
+      slideFn.current(e)
     },
   })
 
   //  TODO: Explore methods of abstracting this to separate file.
   useEffect(() => {
     gsap.registerPlugin(Draggable)
+    gsap.config({ nullTargetWarn: false })
 
     const slides = slidesArr.current
     const container = document.querySelector('#panelWrap')
@@ -41,7 +42,7 @@ const Home = () => {
     let activeSlide = 0
     let iw = window.innerWidth
 
-    gsap.set('.dots, .titleWrap', { xPercent: -50 })
+    gsap.set('.titleWrap', { xPercent: -50 })
     gsap.set('.title', { y: 30 })
     gsap.set('#progress-line', {
       width: 0,
@@ -74,8 +75,6 @@ const Home = () => {
 
     // check which interaction called the slide
     function slideAnim(e) {
-      // TODO: Give end card ability to use this fn.
-      // TODO: Give hero button ability to use this fn.
       oldSlide = activeSlide
 
       // no action if portal/menu open
@@ -84,26 +83,32 @@ const Home = () => {
       })
       if (portalOpen) return
 
-      // dragging the panels
-      // if (this.id === 'dragger') {
-      // } else {
-        if (gsap.isTweening(container)) {
-          return
-        }
-        // menu+end+progress click
-        if (e.target.dataset.action === 'slide-link') {
-          activeSlide = Number(e.target.id) + 1
-        }
-        // mobile swipe
-        if (e.absX) {
-          activeSlide =
-            e.dir === 'Left' ? (activeSlide += 1) : (activeSlide -= 1)
-        }
-        // mouse wheel
-        else {
-          if (e.id === 'menu-modal') return
-          activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1)
-        }
+
+      // some elements should not trigger scrolling animation
+      if (e.target?.dataset.action === 'no-scroll') {
+        return
+      }
+      if (e?.event?.target?.dataset.action === 'no-scroll') {
+        return
+      }
+
+      // don't activate during prev animation
+      if (gsap.isTweening(container)) {
+        return
+      }
+      // menu+end+progress click
+      if (e.target?.dataset.action === 'slide-link') {
+        activeSlide = Number(e.target.id) + 1
+      }
+      // mobile swipe
+      if (e.absX) {
+        activeSlide = e.dir === 'Left' ? (activeSlide += 1) : (activeSlide -= 1)
+      }
+      // mouse wheel
+      else {
+        if (e.id === 'menu-modal') return
+        activeSlide = e.deltaY > 0 ? (activeSlide += 1) : (activeSlide -= 1)
+      }
       // }
       // make sure we're not past the end or beginning slide
       activeSlide = activeSlide < 0 ? 0 : activeSlide

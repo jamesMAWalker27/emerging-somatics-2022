@@ -13,9 +13,14 @@ import {
   socials as socialsStyle,
   flexWrap,
   contactForm,
+  messageWrapper,
 } from './contact.module.scss'
 
 export const Contact = () => {
+  /*
+    TODO: Mobile version.
+  */
+
   const { blurbContent, contacts, socials } = CONTACT_CONTENT
 
   return (
@@ -48,8 +53,10 @@ export const Contact = () => {
         <form className={contactForm}>
           <input placeholder='Full Name' />
           <input placeholder='Email Address' />
-          <textarea placeholder='Say hello!' />
-          <OutlineBtn text='Submit →' action={() => alert('submitted!')}/>
+          <div className={messageWrapper}>
+            <textarea placeholder='Say hello!' data-action={'no-scroll'} />
+            <OutlineBtn text='Submit →' action={() => alert('submitted!')} />
+          </div>
         </form>
       </div>
     </div>

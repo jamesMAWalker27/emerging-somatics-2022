@@ -8,6 +8,7 @@ export const ArrowIcon = ({ color = 'var(--color-med)' }) => {
       viewBox='0 0 30 32'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
+      style={{ pointerEvents: 'none' }}
     >
       <path
         d='M29 14.125L15 0.999999L0.999999 14.125M15 0.999999L15 31'

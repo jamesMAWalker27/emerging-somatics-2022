@@ -21,7 +21,7 @@
   visibility: hidden;
 
   position: relative;
-  z-index: var(--level-nine);
+  z-index: var(--level-seven);
   position: fixed;
   height: 100vh;
   width: 100vw;
@@ -30,12 +30,16 @@
   justify-content: flex-start;
   background-color: transparent;
   @media (max-width: 1024px) {
-    z-index: var(--level-eight);
+    z-index: var(--level-seven);
     background-color: var(--color-accent-dark);
   }
 }
-.bg {
-  position: absolute;
+.shade {
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  z-index: var(--level-six);
+  position: fixed;
   top: 0;
   left: 0;
   height: 100%;
@@ -112,7 +116,11 @@
     transition: var(--transition-primary);
   }
   @media (max-width: 1024px) {
+    width: 100%;
+    margin-left: 20%;
+    height: 40vh;
     margin-top: calc(.5 * var(--space-container-top));
+    margin-top: var(--space-container-top);
   }
 }
 .option {
@@ -127,6 +135,9 @@
   align-items: center;
   justify-content: space-between;
   background-color: none;
+  @media (max-width: 1024px) {
+    bottom: 25vh;
+  }
 }
 
 .socials {
@@ -149,7 +160,7 @@
   position: absolute;
   bottom: 12.5vh;
   font-size: var(--text-menu-sm);
-  color: var(--text-color);
+  color: var(--color-text);
   color: var(--white);
   letter-spacing: var(--push-lg);
   mix-blend-mode: difference;
@@ -167,12 +178,13 @@
   @media (max-width: 1024px) {
     transform: unset;
     bottom: 27.5vh;
+    bottom: 35.5vh;
   }
 }
 .phone {
   right: 12.5%;
   @media (max-width: 1024px) {
-    bottom: 32.5vh;
+    bottom: 42.5vh;
 
   }
 }

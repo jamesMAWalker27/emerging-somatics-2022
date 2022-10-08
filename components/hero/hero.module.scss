@@ -1,5 +1,9 @@
 @import "/styles/mixins";
 
+/*
+  TODO: Mobile ver. adjustments
+*/
+
 .content {
   z-index: var(--level-one);
   top: 0;
@@ -26,6 +30,7 @@
   padding-bottom: 15vh;
   overflow: visible;
   @media (max-width: 1024px) {
+    width: var(--mobile-card-width);
     padding-top: var(--space-5xl);
     align-items: center;
     justify-content: center;
@@ -63,7 +68,7 @@
   overflow: visible;
   @media (max-width: 1024px) {
     text-align: left;
-    width: 75%;
+    width: 100%;
   }
 }
 .subheader {
@@ -71,7 +76,7 @@
   text-align: left;
   @media (max-width: 1024px) {
     text-align: left;
-    width: 75%;
+    width: 100% !important;
   }
 }
 
@@ -82,5 +87,6 @@
     backdrop-filter: none;
     margin-top: var(--vp-lg);
     font-style: italic;
+    
   }
 }

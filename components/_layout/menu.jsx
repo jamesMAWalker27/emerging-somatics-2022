@@ -7,7 +7,7 @@ import { SectionLabel } from '../_elements/section-label'
 
 import {
   modal,
-  bg,
+  shade,
   menu,
   options,
   option,
@@ -28,51 +28,58 @@ export const MenuModal = ({ slideFn }) => {
       visibility: 'hidden',
       onComplete: () => slideFn.current(e),
     })
+    gsap.to('#menu-shade', {
+      opacity: 0,
+      visibility: 'hidden',
+      onComplete: () => slideFn.current(e),
+    })
   }
 
   return (
-    <div className={modal} id='menu-modal'>
-      <nav className={menu}>
-        <ul className={options} id='menu-content'>
-          {pageLinks.map(({ id, title, link }) => {
-            return (
-              <li key={id} className={option}>
-                <Link href={link}>
-                  <>
-                    <a
-                      id={id}
-                      className={`menu-link`}
-                      data-action={'slide-link'}
-                      onClick={handleLink}
-                    >
-                      {title}
-                    </a>
-                    <SectionLabel content={title} />
-                  </>
-                </Link>
-              </li>
-            )
-          })}
-        </ul>
-        <div className={contact}>
-          <ul className={socials}>
-            {socialIcons.map(({ id, icon, url }) => {
+    <>
+      <div className={modal} id='menu-modal'>
+        <nav className={menu}>
+          <ul className={options} id='menu-content'>
+            {pageLinks.map(({ id, title, link }) => {
               return (
-                <a key={id} href={url}>
-                  {icon}
-                </a>
+                <li key={id} className={option}>
+                  <Link href={link}>
+                    <>
+                      <a
+                        id={id}
+                        className={`menu-link`}
+                        data-action={'slide-link'}
+                        onClick={handleLink}
+                      >
+                        {title}
+                      </a>
+                      <SectionLabel content={title} />
+                    </>
+                  </Link>
+                </li>
               )
             })}
           </ul>
-        </div>
-        <a className={emailStyle} href={`mailto:${email.info}`}>
-          {email.info}
-        </a>
-        <a className={phoneStyle} href={`mailto:${phone.info}`}>
-          {phone.info}
-        </a>
-      </nav>
-      <div className={bg} />
-    </div>
+          <div className={contact}>
+            <ul className={socials}>
+              {socialIcons.map(({ id, icon, url }) => {
+                return (
+                  <a key={id} href={url}>
+                    {icon}
+                  </a>
+                )
+              })}
+            </ul>
+          </div>
+          <a className={emailStyle} href={`mailto:${email.info}`}>
+            {email.info}
+          </a>
+          <a className={phoneStyle} href={`mailto:${phone.info}`}>
+            {phone.info}
+          </a>
+        </nav>
+      </div>
+      <div className={shade} id='menu-shade'/>
+    </>
   )
 }

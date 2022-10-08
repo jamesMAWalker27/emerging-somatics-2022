@@ -12,11 +12,11 @@ import {
   btnScroll,
 } from './hero.module.scss'
 
-export const Hero = ({ slideAnim }) => {
+export const Hero = ({ slideFn }) => {
   const [fontsLoaded, setFontsLoaded] = useState(false)
 
-  const handleScrollNextSection = () => {
-    // scroll to first section button click/touch
+  const handleScrollNextSection = (e) => {
+    slideFn.current(e)
   }
 
   // fade content after fonts loaded
@@ -38,7 +38,7 @@ export const Hero = ({ slideAnim }) => {
             <p className={subheader}>
               Skillful action, pragmatic wisdom, and grounded compassion.
             </p>
-            <button className={btnScroll} onClick={handleScrollNextSection}>
+            <button className={btnScroll} data-action={'slide-link'} id='1' onClick={handleScrollNextSection}>
               scroll to proceed →
             </button>
           </>

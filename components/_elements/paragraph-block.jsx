@@ -16,6 +16,8 @@ export const ParagraphBlock = ({
   text,
   btn = null,
   btnAction,
+  btnVis,
+  slideFnData,
   fadeBtn = false,
   gsapId,
   labelText = null,
@@ -26,6 +28,13 @@ export const ParagraphBlock = ({
   useEffect(() => {
     setIsMobile(window.innerWidth < 1024)
   }, [])
+
+  const btnProps = {
+    text: btn,
+    action: btnAction,
+    slideFnData,
+    fadeBtn: btnVis
+  }
 
   return (
     <div className={container}>
@@ -39,11 +48,11 @@ export const ParagraphBlock = ({
           )} */}
         <p className={paragraph}>{text}</p>
         {btn && !isMobile && (
-          <OutlineBtn text={btn} action={btnAction} fadeBtn={fadeBtn} />
+          <OutlineBtn {...btnProps} />
         )}
       </div>
       {btn && isMobile && (
-        <OutlineBtn text={btn} action={btnAction} fadeBtn={fadeBtn} />
+        <OutlineBtn {...btnProps} />
       )}
     </div>
   )

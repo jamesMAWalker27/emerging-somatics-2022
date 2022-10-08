@@ -16,8 +16,9 @@
     position: relative;
     height: var(--mobile-card-height);
     width: var(--mobile-card-width);
+    margin-right: 0;
     background-color: var(--color-bg);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     border: 2px solid var(--color-text);
     text-overflow: ellipsis;
     overflow: hidden;
@@ -27,11 +28,19 @@
       left: 0;
       background-color: var(--color-bg);
       width: var(--mobile-card-width);
-      border-top-right-radius: 0;
-      border-top-left-radius: 0;
+      padding: 1.25rem 0;
+      border-radius: 0;
       border: none;
-      border-top: 2px solid var(--text-color) !important;
+      border-top: 2px solid var(--color-accent-dark) !important;
+      border-top: 2px solid var(--color-text) !important;
       margin: 0;
+      font-weight: var(--light);
+      text-transform: uppercase;
+      letter-spacing: var(--push-ms);
+      // font-style: italic;
+      color: var(--color-accent-dark);
+      color: var(--color-text);
+      background-color: var(--grey-10);
     }
   }
 }
@@ -44,6 +53,8 @@
   justify-content: center;
   @media (max-width: 1024px) {
     width: 85%;
+    padding-top: 2.5vh;
+    justify-content: flex-start;
     height: var(--mobile-card-height);
     text-overflow: ellipsis;
   }

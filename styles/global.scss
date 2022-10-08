@@ -53,6 +53,7 @@
   --off-white: #fafafa;
   --white: #ffffff;
   --white-fade-20: hsla(0, 0%, 100%, 0.2);
+  --white-fade-80: hsla(0, 0%, 100%, 0.8);
 
   --green: #0b8090;
   --green-tr: rgba(11, 129, 144, 0.2);
@@ -233,7 +234,7 @@
   --transition-faster: var(--transition-3-smooth);
 
   /* spacing */
-  --space-container-top: var(--space-4xl);  // 48px
+  --space-container-top: var(--space-2xl);  // 24px
 
   --space-subheader-intra: var(--space-sm); // 4px
   --space-header-intra: var(--space-ml);    // 12px
@@ -242,11 +243,12 @@
   --space-icon: var(--space-3xl);
 
   /* container */
-  --content-width: 70vw;
-  
+  --content-width: min(318px, 75vw);
+  --content-margin: calc((100vw - var(--content-width)) / 2);
+
   /* elements */
   --mobile-card-height: min(624px, 80vh);
-  --mobile-card-width: min(318px, 75vw);
+  --mobile-card-width: var(--content-width);
 }
 }
 
@@ -319,7 +321,7 @@ ul {
   height: 100vh;
   width: 100vw;
   &:has(div) {
-    z-index: var(--level-two);
+    z-index: var(--level-nine);
     pointer-events: initial;
     overflow: scroll;
   }
