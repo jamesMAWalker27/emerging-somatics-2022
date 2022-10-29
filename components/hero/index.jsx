@@ -41,20 +41,21 @@ export const Hero = ({ slideFn }) => {
       <h1 className={companyTitle}>
         <Wordmark />
       </h1>
-        <div className={centerContent} id='hero-text'>
-          <h2 className={header}>Discover Embodied Leadership.</h2>
-          <p className={subheader}>
-            Skillful action, pragmatic wisdom, and grounded compassion.
-          </p>
-          <button
-            className={btnScroll}
-            data-action={'slide-link'}
-            id='1'
-            onClick={handleScrollNextSection}
-          >
-            scroll to proceed →
-          </button>
-        </div>
+      <div className={centerContent} id='hero-text'>
+        <h2 className={header}>Discover Somatic Coaching & Bodywork.</h2>
+        <p className={subheader}>
+          What do you care about? Who do you want to become? <br /> What change do you
+          want to affect? For yourself, and others?
+        </p>
+        <button
+          className={btnScroll}
+          data-action={'slide-link'}
+          id='1'
+          onClick={handleScrollNextSection}
+        >
+          scroll to proceed →
+        </button>
+      </div>
     </div>
   )
 }
