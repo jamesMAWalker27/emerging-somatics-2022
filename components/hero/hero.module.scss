@@ -32,9 +32,11 @@
   overflow: visible;
   @media (max-width: 1024px) {
     width: var(--mobile-card-width);
-    padding-top: var(--space-5xl);
+    // padding-top: var(--space-3xl);
     align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    justify-content: flex-start;
   }
 }
 
@@ -78,6 +80,7 @@
   text-align: left;
   @media (max-width: 1024px) {
     text-align: left;
+    line-height: 150%;
     width: 100% !important;
   }
 }
@@ -89,6 +92,6 @@
     backdrop-filter: none;
     margin-top: var(--vp-lg);
     font-style: italic;
-    
+    justify-self: flex-start;
   }
 }

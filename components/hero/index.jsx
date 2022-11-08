@@ -15,6 +15,7 @@ import {
 
 export const Hero = ({ slideFn }) => {
   const [fontsLoaded, setFontsLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState()
 
   const handleScrollNextSection = (e) => {
     slideFn.current(e)
@@ -30,11 +31,11 @@ export const Hero = ({ slideFn }) => {
 
   // fade content after fonts loaded
   useEffect(() => {
+    setIsMobile(window.innerWidth < 1024)
     document.fonts.ready.then(() => {
-      // setFontsLoaded(true)
       fadeInFonts()
     })
-  })
+  }, [])
 
   return (
     <div className={`${content} hero-content`}>
@@ -53,7 +54,7 @@ export const Hero = ({ slideFn }) => {
           id='1'
           onClick={handleScrollNextSection}
         >
-          scroll to proceed →
+          {isMobile ? 'swipe' : 'scroll'} to proceed →
         </button>
       </div>
     </div>
