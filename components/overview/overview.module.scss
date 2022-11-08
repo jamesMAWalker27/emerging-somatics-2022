@@ -13,7 +13,7 @@
   isolation: isolate;
 
   .btnCollapse {
-    z-index: 99;
+    z-index: 99 !important;
   }
   .blocks {
     z-index: 2;
@@ -24,68 +24,36 @@
 }
 
 .expanderContent {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
   height: auto;
-  height: 210vh;
-  width: 100vw;
-  @media (max-width: 1024px) {
-    padding-bottom: 10vh;
-    height: 405vh;
-    height: min-content;
-    align-items: flex-start;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.blocks {
+  padding-top: var(--space-container-top);
+  padding-bottom: calc(2 * var(--space-container-top));
+  width: var(--portal-content-width);
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+ button {
+  margin-top: 3rem;
+ }
+}
+
+.block {
+  h2 {
+    @include header;
   }
-  // ↓ Only ParagraphBlocks that appear on expand.
-  div:not(:first-child, .bg, .btnCollapse) {
-    position: relative;
-    margin-top: 0;
-    height: 100%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    @media (max-width: 1024px) {
-      h4 {
-        color: var(--color-accent-dark);
-      }
-      path {
-        fill: var(--color-accent-dark);
-      }
-    }
-    &:hover {
-      &::after {
-        opacity: 0.5;
-      }
-      h4 {
-        color: var(--color-accent-dark);
-      }
-      path {
-        fill: var(--color-accent-dark);
-      }
-    }
-    &::after {
-      z-index: -1;
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      height: 105vh;
-      width: 105vh;
-      background-color: var(--color-calendar-primary-lt);
-      opacity: 0;
-      transition: var(--transition-primary);
-      @media (max-width: 1024px) {
-        display: none;
-      }
-    }
-  }
-  // ↓ 2 ParagraphBlocks that appear off screen
-  div:nth-child(3),
-  div:nth-child(4) {
-    height: unset;
+  p {
+    @include prose;
+    letter-spacing: normal;
+    line-height: 150%;
   }
 }
 
@@ -93,58 +61,8 @@
   @include btnCollapse;
 }
 
-.blocks {
-  z-index: 2;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  @media (max-width: 1024px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    align-items: flex-start;
-    justify-content: flex-start;
-    // ↓ All ParagraphBlocks
-    div {
-      justify-self: center;
-      align-self: center;
-      border: none;
-      height: auto;
-      overflow: visible;
-      margin-bottom: var(--space-4xl);
-      width: var(--mobile-card-width);
-    }
-    // ↓ Only ParagraphBlock with button
-    div:has(button) {
-      padding-bottom: var(--space-8xl);
-      button {
-        margin: var(--content-margin);
-        margin-top: 48px;
-        align-self: center;
-        background-color: transparent;
-        border-radius: var(--radius-md);
-        border: 1px solid var(--color-text);
-        &:active,
-        &:hover,
-        &:focus,
-        &:focus-within {
-          color: var(--color-text);
-          background-color: var(
-            --color-calendar-primary-lt
-          );
-        }
-      }
-    }
-  }
-}
 
 .bg {
-  z-index: 1;
   position: absolute;
   top: 0;
   left: 0;

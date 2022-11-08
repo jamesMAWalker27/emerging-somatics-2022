@@ -3,19 +3,19 @@ const text_main = (<>
     Hi! I&apos;m David, and before I get into the details I want to acknowledge the obvious: an 'about me' section on a website, in particular as it relates to somatics, is probably missing (more than) half the 'picture'.
   </span>
   <span>
-    If you’d like to know more, what follows will give you a little more of an understanding of who I am, and what has shaped me. Hopefully, my story can inspire some curiousity about somatic coaching and/or bodywork
+    If you’d like to know more, what follows will give you a little more of an understanding of who I am, and what has shaped me. Hopefully, my story can inspire some curiousity about somatic coaching and/or bodywork.
   </span>
 </>
 ) 
 
 const text_sec = (<>
   <span>
-    Within Srozzi Somatics, we look at so-called sites of shaping and sites of change, that go beyond the individual, family and intimate network and include community, instituations, social norms, historical forces, landscape and spirit that shape us into who we are in this present moment. I am happy to elaborate on these further if you’d like to take the time.
+    Within Strozzi Somatics, we look at so-called sites of shaping and sites of change, that go beyond the individual, family and intimate network and include community, instituations, social norms, historical forces, landscape and spirit that shape us into who we are in this present moment. I am happy to elaborate on these further if you’d like to take the time.
     <br />
     <br />
-    <span>
-      For now what feels relevant for me to share is certain experiences in my life that have significantly shaped me into who I am today:
-    </span>
+    <b style={{ color: 'var(--color-accent-dark)' }}>
+      For now what feels relevant for me to share is certain experiences in my life that have significantly shaped me into who I am today.
+    </b>
   </span>
 </>
 )

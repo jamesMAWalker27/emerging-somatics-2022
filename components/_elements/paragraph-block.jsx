@@ -12,6 +12,7 @@ import {
 } from './paragraph-block.module.scss'
 
 export const ParagraphBlock = ({
+  children,
   header,
   text,
   btn = null,
@@ -46,6 +47,7 @@ export const ParagraphBlock = ({
             />
           )} */}
         <p className={paragraph}>{text}</p>
+        { children }
         {btn && !isMobile && <OutlineBtn {...btnProps} />}
       </div>
       {btn && isMobile && <OutlineBtn {...btnProps} />}

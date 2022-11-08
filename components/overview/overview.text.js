@@ -1,19 +1,21 @@
-import { HourglassIcon, MortarboardIcon, PenIcon } from './icons';
+// * Overview Text Content
 
 export const text_1 = (
   <>
     <span>
-      Somatics works against the backdrop of questions like &quot;What do you care
-      about?&quot;, &quot;Who do you want to become?&quot;, &quot;What change do you want to affect
-      for yourself, your family and intimate network, your organization, your
-      community, the world?&quot;, &quot;What do you long for?&quot;, &quot;What wants to come to
-      life?&quot;
+      If you are new to somatic coaching, you will learn not only a basic
+      understanding, but also a felt experience of somatics such as the arc of
+      transformation as well as somatic awareness, somatic opening and somatic
+      practices (do not worry, I will explain these terms further in our first
+      sessions). I will also help you to create a declaration for yourself. You
+      can understand a declaration as a commitment to a future vision you have
+      for yourself, based on what you deeply care about.
     </span>
     <span>
-      By taking into account the whole soma (person) with its rational,
-      emotional and social intelligence it provides a deeper answer to these
-      questions, and practices to fulfilling on embodying these commitments that
-      surface.
+      A declaration mobilizes your intention, mobilizes those around you, as you
+      start to embody the vision you have about your future. In this context
+      embodiment means that your entire being - actions, thinking, speech,
+      emotions, moods & physical presence - are reflecting your declaration.
     </span>
   </>
 )
@@ -46,24 +48,40 @@ export const text_3 = (
     </span>
     <span>
       We can go through a centering practice during our first session, and I
-      will explain the relevance for practicing. We are what we practice, and we
-      are never not practicing.
+      will explain the relevance for practicing.
     </span>
+    <span>We are what we practice, and we are never not practicing.</span>
   </>
 )
 
 export const text_4 = (
   <>
     <span>
-      Nulla vitae pulvinar ipsum. In ornare leo a nisl vulputate vulputate.
-      Curabitur bibendum augue blandit mi blandi.
+      If you find the coaching experience valuable beyond the time that you are
+      investing into yourself here, and you feel moved to pay for sessions at
+      some point (e.g. it would make you happy to pay), feel free to raise this
+      topic with me.
+    </span>
+  </>
+)
+
+export const text_5 = (
+  <>
+    <span>
+      I am a Certified Somatic Coach by Strozzi Institute. Richard
+      Strozzi-Heckler was the lead teacher in my cohort, and has been spending
+      over 4 decades researching, developing and teaching Somatics.
     </span>
     <span>
-      I am not looking for compensation until I am certified - and only
-      applicable for new clients who start after I receive my certification.
-      However, if you find the coaching experience valuable beyond the time that
-      you are investing into yourself here, and you feel moved to pay for
-      sessions at some point, feel free to raise this topic with me then.
+      In addition, I am also a certified somatic bodyworker by Strozzi
+      Institute, having learned from Staci Haines in Strozzi Institute's Somatic
+      Bodywork Level 1 course in September 2021, as well as from Richard Strozzi
+      in November 2022. Wendy Haines, who also taught in our coaching program
+      with Richard, continues to be my somatic coach.
+    </span>
+    <span>
+      Furthermore, I'm continuously participating in courses exploring the
+      intersection of somatics and racial justice work.
     </span>
   </>
 )
@@ -83,8 +101,7 @@ export const OVERVIEW_CONTENT = [
   {
     header: (
       <>
-        <HourglassIcon />
-        <span>Duration</span>
+        <span>Meetings</span>
       </>
     ),
     text: text_2,
@@ -93,7 +110,6 @@ export const OVERVIEW_CONTENT = [
   {
     header: (
       <>
-        <PenIcon />
         <span>Homework</span>
       </>
     ),
@@ -103,11 +119,19 @@ export const OVERVIEW_CONTENT = [
   {
     header: (
       <>
-        <MortarboardIcon />
-        <span>Outcome</span>
+        <span>Costs</span>
       </>
     ),
     text: text_4,
+    btnText: null,
+  },
+  {
+    header: (
+      <>
+        <span>Certifications</span>
+      </>
+    ),
+    text: text_5,
     btnText: null,
   },
 ]

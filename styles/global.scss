@@ -206,6 +206,7 @@
   --space-icon: var(--space-3xl);
 
   /* container */
+  --portal-content-width: max(258px, 55vw);
   --content-width: 70vw;
 }
 
@@ -243,6 +244,7 @@
   --space-icon: var(--space-3xl);
 
   /* container */
+  --portal-content-width: max(258px, 55vw);
   --content-width: min(318px, 75vw);
   --content-margin: calc((100vw - var(--content-width)) / 2);
 

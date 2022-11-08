@@ -3,9 +3,6 @@
   "todo-tree.tree.disableCompactFolders": false,
   "workbench.colorCustomizations": {
     "editor.selectionBackground": "#4d81f157",
-    "editor.snippetTabstopHighlightBackground": "#3a518357",
-    "activityBar.background": "#143328",
-    "titleBar.activeBackground": "#1C4838",
-    "titleBar.activeForeground": "#F7FCFA"
+    "editor.snippetTabstopHighlightBackground": "#3a518357"
   }
 }

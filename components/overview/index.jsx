@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { gsap } from 'gsap'
 import { useInView } from 'react-intersection-observer'
@@ -6,22 +6,25 @@ import { useInView } from 'react-intersection-observer'
 import { OVERVIEW_CONTENT } from './overview.text'
 
 import { ParagraphBlock } from '../_elements/paragraph-block'
+import { OutlineBtn } from '../_elements/outline-btn';
 import { ArrowIcon } from '../_svg/collapse'
+
+import { fadeIntoView } from '../../animation/section-animations'
 
 import {
   overview,
   expanderContent,
   blocks,
+  block,
   btnCollapse,
   bg,
 } from './overview.module.scss'
-import { fadeIntoView } from '../../animation/section-animations'
+
+// TODO: Refactor to match vertical layout style of about page.
+// TODO: Refactor both about and ov to use a modal rather than portal.
 
 const ExpanderContent = ({ closeModal, slideFn }) => {
   useEffect(() => {
-    // TODO: Use slideFn to scroll to self before closing.
-    // TODO: Create mobile config for expander.
-
     const openTL = gsap.timeline()
 
     openTL
@@ -35,7 +38,7 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
         }
       )
       .fromTo(
-        '#ov-par-block, #ov-btn-col',
+        '#ov-par-block, #ov-btn-col, #indicator',
         {
           opacity: 0,
         },
@@ -53,34 +56,29 @@ const ExpanderContent = ({ closeModal, slideFn }) => {
     // animate closed & use slideFn.current to scroll to calendar
   }
 
-  /* 
-    TODO: Add a span containing "___.01/2/3" to each block on hover as per figma design.
-  */
 
   return (
     <section className={expanderContent} id='expander'>
       <div className={blocks} id='text-blocks'>
         {OVERVIEW_CONTENT.map((oc, idx) => {
           return (
-            <ParagraphBlock
-              key={idx}
-              header={oc.header}
-              text={oc.text}
-              gsapId={idx !== 0 ? 'ov-par-block' : ''}
-              btnClass={idx === 0 ? 'ov-btn' : ''}
-              btn={idx === 3 && 'Make an Appointment →'}
-              slideFnData={idx === 3 && { attr: 'slide-link', id: 5 }}
-              btnAction={idx === 3 && ((e) => closeToAppointments(e))}
-              fadeBtn={false}
-            />
+            <div className={block}>
+              <h2>{oc.header}</h2>
+              <p>{oc.text}</p>
+            </div>
           )
         })}
+        <OutlineBtn
+          text='Make an Appointment →'
+          action={(e) => closeToAppointments(e)}
+          slideFnData={{ attr: 'slide-link', id: 5 }}
+        />
       </div>
-      <div className={bg} />
       <button className={btnCollapse} onClick={closeModal} id='ov-btn-col'>
         <span>Collapse</span>
         <ArrowIcon />
       </button>
+      <div className={bg} />
     </section>
   )
 }

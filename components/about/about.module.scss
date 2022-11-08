@@ -91,8 +91,7 @@
   @include pageCenter;
   position: relative;
   list-style: circle;
-  padding-top: var(--space-container-top);
-  padding-top: 5vh;
+  padding-top: 10vh;
   padding-bottom: 10vh;
   li {
     font-family: var(--font-body);

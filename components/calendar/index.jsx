@@ -37,6 +37,7 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
 
   /*
     TODO: Connect Square API.
+    TODO: Modal Close button doesn't always work.
   */
 
   // mobile breakpoint
