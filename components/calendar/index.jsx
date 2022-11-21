@@ -3,8 +3,10 @@ import ReactCalendar from 'react-calendar'
 import { gsap } from 'gsap'
 import { Draggable } from 'gsap/dist/Draggable'
 import { useInView } from 'react-intersection-observer'
+import { PopupModal, PopupWidget } from 'react-calendly'
+import Script from 'next/script'
 
-import { SESSION_TYPES } from './calendar-data'
+import { SESSION_TYPES, prefill, pageSettings } from './calendar-data'
 
 import { OutlineBtn } from '../_elements/outline-btn'
 import { CloseBtn } from '../_svg/close'
@@ -30,6 +32,7 @@ import {
 } from './calendar.module.scss'
 
 const CalendarModal = ({ position: [x, y], close, date }) => {
+  console.log('date: ', date);
   const [isMobile, setIsMobile] = useState(false)
   const [selectedTime, setSelectedTime] = useState(0)
   const [sessionType, setSessionType] = useState(SESSION_TYPES[0])
@@ -46,21 +49,21 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
   }, [])
 
   // make modal draggable
-  useEffect(() => {
-    gsap.registerPlugin(Draggable)
-    gsap.set('#modal', { x, y })
-    const dragModal = Draggable.create('#modal', {
-      type: 'x,y',
-      inertia: true,
-      bounds: document.querySelector('#calendar'),
-      dragClickables: true,
-      allowEventDefault: true,
-    })
-    if (isMobile) {
-      dragModal[0].kill()
-      gsap.set('#modal', { x: 0, y: 0 })
-    }
-  }, [isMobile])
+  // useEffect(() => {
+  //   gsap.registerPlugin(Draggable)
+  //   gsap.set('#modal', { x, y })
+  //   const dragModal = Draggable.create('#modal', {
+  //     type: 'x,y',
+  //     inertia: true,
+  //     bounds: document.querySelector('#calendar'),
+  //     dragClickables: true,
+  //     allowEventDefault: true,
+  //   })
+  //   if (isMobile) {
+  //     dragModal[0].kill()
+  //     gsap.set('#modal', { x: 0, y: 0 })
+  //   }
+  // }, [isMobile])
 
   // animate modal in/out
   useEffect(() => {
@@ -75,9 +78,8 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
     )
   }, [])
 
-  
   const handleClose = () => {
-    gsap.to('#modal, #modal-shade', {
+    gsap.to('#modal, #modal-shade, #portal', {
       opacity: 0,
       onComplete: close,
     })
@@ -131,7 +133,15 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
 
   return (
     <>
-      <div className={modal} id='modal' data-action={'no-scroll'}>
+      <PopupModal
+        url='https://calendly.com/jamesmawalker/initial-consult'
+        rootElement={document.getElementById('portal')}
+        prefill={{ date }}
+        pageSettings={pageSettings}
+        open={true}
+        onModalClose={handleClose}
+      />
+      {/* <div className={modal} id='modal' data-action={'no-scroll'}>
         <span className={btnClose} onClick={handleClose}>
           <CloseBtn />
         </span>
@@ -215,7 +225,7 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
             <OutlineBtn text='Request Appointment →' noOutline={true} />
           </div>
         </div>
-      </div>
+      </div> */}
       <div className={shade} id='modal-shade' />
     </>
   )
@@ -225,7 +235,7 @@ export const Calendar = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [modalPosition, setModalPosition] = useState([0, 0])
   const [calendarRef, calendarInView] = useInView({ threshold: 0.2 })
-  const [currentDate, setCurrentDate] = useState(null)
+  const [currentDate, setCurrentDate] = useState(new Date())
 
   // give calendar no scroll attr
   useEffect(() => {
@@ -273,8 +283,11 @@ export const Calendar = () => {
     // }))
   }
 
-  const handleModalOpen = () => {
-    // TODO: Animate modal in/out
+  const handleModalOpen = (value) => {
+     gsap.to('#portal', {
+       opacity: 1,
+     })
+    setCurrentDate(value)
     setModalOpen(true)
   }
 
@@ -302,11 +315,12 @@ export const Calendar = () => {
         {modalOpen && (
           <CalendarModal
             position={modalPosition}
-            date={'Sept. 12, 2022'}
+            date={currentDate}
             close={() => setModalOpen(false)}
           />
         )}
       </div>
+      <Script src='https://assets.calendly.com/assets/external/widget.js' />
     </div>
   )
 }
