@@ -60,8 +60,16 @@ export const text_4 = (
       If you find the coaching experience valuable beyond the time that you are
       investing into yourself here, and you feel moved to pay for sessions at
       some point (e.g. it would make you happy to pay), feel free to raise this
-      topic with me.
+      topic with me. In other words, I’m happy to start coaching/bodywork
+      without charging you for sessions. I do believe in the value of somatics
+      and want to share it with as many people as possible.
     </span>
+    {/* <span>
+      If you find the coaching experience valuable beyond the time that you are
+      investing into yourself here, and you feel moved to pay for sessions at
+      some point (e.g. it would make you happy to pay), feel free to raise this
+      topic with me.
+    </span> */}
   </>
 )
 
@@ -75,13 +83,15 @@ export const text_5 = (
     <span>
       In addition, I am also a certified somatic bodyworker by Strozzi
       Institute, having learned from Staci Haines in Strozzi Institute's Somatic
-      Bodywork Level 1 course in September 2021, as well as from Richard Strozzi
-      in November 2022. Wendy Haines, who also taught in our coaching program
-      with Richard, continues to be my somatic coach.
+      Bodywork Level 1 course in September 2021, as well as from Richard
+      Strozzi-Heckler in November 2022. Wendy Haines, who also taught in our
+      coaching program with Richard, continues to be my somatic coach.
     </span>
     <span>
       Furthermore, I'm continuously participating in courses exploring the
-      intersection of somatics and racial justice work.
+      intersection of somatics and racial justice work and am very grateful to
+      have learned from many more wonderful and fantastic somatic practitioners.
+      If you’d like to know more about the lineage please reach out.
     </span>
   </>
 )
