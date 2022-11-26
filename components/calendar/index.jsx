@@ -63,14 +63,15 @@ const CalendarModal = ({ close, date, sessionUrl }) => {
 
   const urlWithDateParams = getUrlDate(sessionUrl, date)
   console.log('urlWithDateParams: ', urlWithDateParams)
-
   return (
     <>
       <PopupModal
+        // url={sessionUrl}
         url={urlWithDateParams}
         rootElement={document.getElementById('portal')}
         pageSettings={pageSettings}
         open={true}
+        // prefill={{ date }}
         onModalClose={handleCloseModal}
       />
       <div className={shade} id='modal-shade' />
