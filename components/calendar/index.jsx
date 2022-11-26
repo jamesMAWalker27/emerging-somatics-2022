@@ -1,70 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import ReactCalendar from 'react-calendar'
 import { gsap } from 'gsap'
-import { Draggable } from 'gsap/dist/Draggable'
 import { useInView } from 'react-intersection-observer'
-import { PopupModal, PopupWidget } from 'react-calendly'
+import { PopupModal } from 'react-calendly'
 import Script from 'next/script'
 
-import { SESSION_TYPES, prefill, pageSettings } from './calendar-data'
-
-import { OutlineBtn } from '../_elements/outline-btn'
-import { CloseBtn } from '../_svg/close'
+import { SESSION_TYPES, pageSettings } from './calendar-data'
 
 import {
   calendarContainer,
   header,
   calendar,
-  modal,
+  sessSelect,
+  sessSelectClose,
+  sessLinks,
+  sessHeader,
+  sessDetails,
+  sessBtn,
   shade,
-  times,
-  btnClose,
-  scrollWrap,
-  timesList,
-  active as activeStyle,
-  details,
-  inputs,
-  appt,
-  apptDetail,
-  sessionSelect,
-  pseudoSelect,
-  btnSubmit,
 } from './calendar.module.scss'
 
-const CalendarModal = ({ position: [x, y], close, date }) => {
-  console.log('date: ', date);
-  const [isMobile, setIsMobile] = useState(false)
-  const [selectedTime, setSelectedTime] = useState(0)
-  const [sessionType, setSessionType] = useState(SESSION_TYPES[0])
-  const [optionsVisible, setOptionsVisible] = useState(false)
-
-  /*
-    TODO: Connect Square API.
-    TODO: Modal Close button doesn't always work.
-  */
-
-  // mobile breakpoint
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 1024)
-  }, [])
-
-  // make modal draggable
-  // useEffect(() => {
-  //   gsap.registerPlugin(Draggable)
-  //   gsap.set('#modal', { x, y })
-  //   const dragModal = Draggable.create('#modal', {
-  //     type: 'x,y',
-  //     inertia: true,
-  //     bounds: document.querySelector('#calendar'),
-  //     dragClickables: true,
-  //     allowEventDefault: true,
-  //   })
-  //   if (isMobile) {
-  //     dragModal[0].kill()
-  //     gsap.set('#modal', { x: 0, y: 0 })
-  //   }
-  // }, [isMobile])
-
+const CalendarModal = ({ close, date, sessionUrl }) => {
   // animate modal in/out
   useEffect(() => {
     gsap.fromTo(
@@ -78,154 +34,45 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
     )
   }, [])
 
-  const handleClose = () => {
-    gsap.to('#modal, #modal-shade, #portal', {
-      opacity: 0,
-      onComplete: close,
-    })
-  }
-
   // close modal with esc key
   useEffect(() => {
     const close = (e) => {
       if (e.keyCode === 27) {
-        handleClose()
+        handleCloseModal()
       }
     }
     window.addEventListener('keydown', close)
     return () => window.removeEventListener('keydown', close)
   })
 
-  const handleSetTime = (idx) => {
-    setSelectedTime(idx)
+  function handleCloseModal() {
+    gsap.to('#modal, #modal-shade, #portal', {
+      opacity: 0,
+      onComplete: close,
+    })
   }
 
-  const handleSelectSession = ({ target: { id } }) => {
-    console.log('id: ', id)
-    setSessionType(SESSION_TYPES[id])
+  function getUrlDate(base, date) {
+    let [year, month, day] = [
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+    ]
+    return `${base}?month=${year}-${month}&date=${year}-${month}-${day}`
   }
 
-  const handleToggleSelect = () => {
-    if (!optionsVisible) {
-      setOptionsVisible(true)
-      gsap.fromTo(
-        '#pseudo-select',
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-        }
-      )
-    } else {
-      gsap.fromTo(
-        '#pseudo-select',
-        {
-          opacity: 1,
-        },
-        {
-          opacity: 0,
-          onComplete: () => setOptionsVisible(false),
-        }
-      )
-    }
-  }
+  const urlWithDateParams = getUrlDate(sessionUrl, date)
+  console.log('urlWithDateParams: ', urlWithDateParams)
 
   return (
     <>
       <PopupModal
-        url='https://calendly.com/jamesmawalker/initial-consult'
+        url={urlWithDateParams}
         rootElement={document.getElementById('portal')}
-        prefill={{ date }}
         pageSettings={pageSettings}
         open={true}
-        onModalClose={handleClose}
+        onModalClose={handleCloseModal}
       />
-      {/* <div className={modal} id='modal' data-action={'no-scroll'}>
-        <span className={btnClose} onClick={handleClose}>
-          <CloseBtn />
-        </span>
-        <div className={times}>
-          <div className={scrollWrap}>
-            <ul className={timesList} data-action={'no-scroll'}>
-              <span>{isMobile ? '▸' : '▾'}</span>
-              {Array.from({ length: 9 }).map((_, time) => {
-                const isPM = time > 3
-                const hour = isPM ? time - 3 : time + 9
-
-                const selected = time === selectedTime
-                return (
-                  <button
-                    key={time}
-                    onClick={() => handleSetTime(time)}
-                    className={selected ? activeStyle : ''}
-                    data-mer={isPM ? 'pm' : 'am'}
-                    data-action={'no-scroll'}
-                  >
-                    {hour}:00
-                  </button>
-                )
-              })}
-              <span>{isMobile ? '◂' : '▴'}</span>
-            </ul>
-          </div>
-        </div>
-        <div className={details}>
-          <div className={inputs} data-clickable={true}>
-            {[{ ph: 'Full Name' }, { ph: 'Email' }, { ph: 'Phone' }].map(
-              ({ ph }) => (
-                <input
-                  placeholder={ph}
-                  data-action={'no-scroll'}
-                  type={ph === 'Email' ? 'email' : 'text'}
-                />
-              )
-            )}
-          </div>
-          <div className={appt} data-action={'no-scroll'}>
-            {[
-              { id: 'time', l: 'Time', c: selectedTime },
-              { id: 'date', l: 'Date', c: date },
-            ].map(({ l, c }) => {
-              return (
-                <div
-                  className={`${apptDetail}`}
-                  key={l}
-                  data-action={'no-scroll'}
-                >
-                  <label data-action={'no-scroll'}>{l}</label>
-                  <div data-action={'no-scroll'}>{c}</div>
-                </div>
-              )
-            })}
-            <div className={sessionSelect} onClick={handleToggleSelect}>
-              <label htmlFor='sess'>Session</label>
-              <select id='sess' onMouseDown={(e) => e.preventDefault()}>
-                <option>
-                  {sessionType?.type} &nbsp; &nbsp; | &nbsp; &nbsp;{' '}
-                  {sessionType?.dur}MIN
-                </option>
-              </select>
-              {optionsVisible && (
-                <ul className={pseudoSelect} id='pseudo-select'>
-                  {SESSION_TYPES.map(({ type, dur }, idx) => {
-                    return (
-                      <li key={type} id={idx} onClick={handleSelectSession}>
-                        <span>{type}</span>
-                        <span>&nbsp;</span>
-                        <span>{dur}MIN</span>
-                      </li>
-                    )
-                  })}
-                </ul>
-              )}
-            </div>
-          </div>
-          <div className={btnSubmit}>
-            <OutlineBtn text='Request Appointment →' noOutline={true} />
-          </div>
-        </div>
-      </div> */}
       <div className={shade} id='modal-shade' />
     </>
   )
@@ -233,11 +80,13 @@ const CalendarModal = ({ position: [x, y], close, date }) => {
 
 export const Calendar = () => {
   const [modalOpen, setModalOpen] = useState(false)
+  const [sessSelectOpen, setSessSelectOpen] = useState(false)
   const [modalPosition, setModalPosition] = useState([0, 0])
   const [calendarRef, calendarInView] = useInView({ threshold: 0.2 })
   const [currentDate, setCurrentDate] = useState(new Date())
+  const [apptType, setApptType] = useState()
 
-  // give calendar no scroll attr
+  // give calendar no scroll attrs
   useEffect(() => {
     const daysAbbr = document.querySelectorAll('.react-calendar abbr')
     const daysBtn = document.querySelectorAll('.react-calendar button')
@@ -259,39 +108,54 @@ export const Calendar = () => {
     }
   }, [calendarInView])
 
-  const toggleModal = () => {
-    setModalOpen(!modalOpen)
+  // animate tooltip entry
+  useEffect(() => {
+    gsap.fromTo(
+      '#tool-tip',
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+      }
+    )
+  }, [sessSelectOpen])
+
+  function handleCloseSessSelect() {
+    gsap.to('#tool-tip', {
+      opacity: 0,
+      onComplete: () => setSessSelectOpen(false),
+    })
   }
 
-  const handleSetMonthYear = ({ activeStartDate }) => {
+  function handleSetMonthYear({ activeStartDate }) {
     // only run on month/year change
     if (!activeStartDate) return
 
     const [, month, , year] = activeStartDate.toString().split(' ')
-    console.log('month: ', month)
-    console.log('year: ', year)
-    // setAptDetail((prv) => ({
-    //   ...prv,
-    //   date: {
-    //     ...prv.date,
-    //     val: {
-    //       ...prv.date.val,
-    //       m: month,
-    //       y: year,
-    //     },
-    //   },
-    // }))
   }
 
-  const handleModalOpen = (value) => {
-     gsap.to('#portal', {
-       opacity: 1,
-     })
+  function handleStartScheduleProcess(value) {
+    setSessSelectOpen(true)
     setCurrentDate(value)
-    setModalOpen(true)
   }
 
-  const handleModalPosition = ({ pageX, target }) => {
+  function handleModalOpen(sessionUrl) {
+    setApptType(sessionUrl)
+    setModalOpen(true)
+    gsap.fromTo(
+      '#portal',
+      {
+        opacity: 0,
+      },
+      {
+        opacity: 1,
+        onComplete: () => setSessSelectOpen(false),
+      }
+    )
+  }
+
+  function handleModalPosition({ pageX, target }) {
     setModalPosition([pageX, 0])
   }
 
@@ -309,14 +173,37 @@ export const Calendar = () => {
           prevLabel={'←'}
           prev2Label={null}
           maxDetail='month'
-          onClickDay={handleModalOpen}
+          // onClickDay={handleModalOpen}
+          onClickDay={handleStartScheduleProcess}
           onActiveStartDateChange={handleSetMonthYear}
         />
+        {sessSelectOpen && (
+          <div className={sessSelect} id='tool-tip'>
+            <span className={sessSelectClose} onClick={handleCloseSessSelect}>
+              &times;
+            </span>
+            <ul className={sessLinks}>
+              <h5 className={sessHeader}>Session Type</h5>
+              {SESSION_TYPES.map((st) => {
+                return (
+                  <li key={st.type} onClick={() => handleModalOpen(st.url)}>
+                    <div className={sessDetails}>
+                      <span>{st.type}</span>
+                      <span>{st.time}min</span>
+                    </div>
+                    <button className={sessBtn}>→</button>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        )}
         {modalOpen && (
           <CalendarModal
             position={modalPosition}
             date={currentDate}
             close={() => setModalOpen(false)}
+            sessionUrl={apptType}
           />
         )}
       </div>

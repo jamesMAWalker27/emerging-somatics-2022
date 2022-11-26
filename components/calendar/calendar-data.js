@@ -1,10 +1,22 @@
 export const SESSION_TYPES = [
-  { type: 'Consult', dur: 45 },
-  { type: 'Regular', dur: 90 },
-  { type: 'Team', dur: 240 },
+  {
+    type: 'Exploration Call',
+    time: 20,
+    url: `https://calendly.com/davidbaarsomatics/exploration-call`,
+  },
+  {
+    type: 'Somatic Bodywork',
+    time: 60,
+    url: `https://calendly.com/davidbaarsomatics/60-min-somatic-bodywork`,
+  },
+  {
+    type: 'Somatic Coaching',
+    time: 60,
+    url: `https://calendly.com/davidbaarsomatics/60-min-somatic-coaching`,
+  },
 ]
 
-// CALENDLY
+// CALENDLY WIDGET CONFIG
 export const pageSettings = {
   backgroundColor: 'ffffff',
   hideEventTypeDetails: false,
