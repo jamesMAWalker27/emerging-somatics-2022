@@ -1,0 +1,45 @@
+.container {
+  position: fixed;
+  z-index: var(--level-top);
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--color-accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// .pulse {
+//   animation-name: opacity-pulse;
+//   animation-duration: 2s;
+//   animation-timing-function: ease-in-out;
+//   animation-iteration-count: infinite;
+// }
+.pulse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  svg:first-child {
+    margin-bottom: 1rem;
+  }
+}
+
+.pulse path {
+  animation-name: color-pulse;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes color-pulse {
+  from {
+    fill: var(--green-light);
+  }
+  to {
+    fill: var(--green);
+  }
+}

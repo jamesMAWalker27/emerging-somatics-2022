@@ -1,18 +1,43 @@
 import React, { useState } from 'react'
+import gsap from 'gsap'
 
 import { FBIcon } from '../_svg/fb-icon'
 import { InstaIcon } from '../_svg/insta-icon'
 import { ProgressBar } from './progress-bar'
 import { MenuModal } from './menu'
-
-import { bg, socials } from './layout.module.scss'
 import { TopNav } from './top-nav'
 import { MobileNav } from './mobile-nav'
+import { LoadingShade } from './loading-shade'
+
+import { bg, socials } from './layout.module.scss'
 
 export const Layout = ({ bgVideo, slideFn }) => {
+  const [loading, setLoading] = useState(true)
+
+  const fadeInFonts = () => {
+    gsap.fromTo(
+      '#hero-text',
+      { opacity: 0 },
+      { opacity: 1, delay: 0.25, duration: 1 }
+    )
+  }
+
+  const handleVideoReady = () => {
+    setTimeout(() => {
+      gsap.to('#loading-shade', {
+        opacity: 0,
+        onComplete: () => {
+          fadeInFonts()
+          setLoading(false)
+        },
+      })
+    }, 1500);
+  }
+
   return (
     <>
       <TopNav />
+      {loading && <LoadingShade />}
       <div id='portal' />
       <MobileNav />
       <MenuModal slideFn={slideFn} />
@@ -25,12 +50,16 @@ export const Layout = ({ bgVideo, slideFn }) => {
         <video
           id='video-main'
           // src={`https://res.cloudinary.com/jameswalker-work/video/upload/v1662286408/emerging/ferns_exk1af.mp4`}
-          src={`https://res.cloudinary.com/datacom-cabling/video/upload/v1665245822/es/ferns_rh2ujp.mp4`}
+          // src={`https://res.cloudinary.com/datacom-cabling/video/upload/v1665245822/es/ferns_rh2ujp.mp4`}
+          // src={`https://res.cloudinary.com/jameswalker-work/video/upload/f_auto,q_auto:eco/v1662286408/emerging/ferns_exk1af.mp4`}
+          src={`https://res.cloudinary.com/jameswalker-work/video/upload/f_auto,q_auto:good/v1678170728/emerging/ferns_exk1af_xe2ljj.webm`}
           autoPlay
           loop
           muted
           style={{ opacity: bgVideo === 'main' ? 1 : 0 }}
-          />
+          // onCanPlay={handleVideoReady}
+          onPlay={handleVideoReady}
+        />
         <video
           id='video-about'
           src={`https://res.cloudinary.com/datacom-cabling/video/upload/v1665245822/es/ferns_rh2ujp.mp4`}

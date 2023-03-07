@@ -12,7 +12,8 @@ import { useInView } from 'react-intersection-observer'
 const GAP_DIST = 90 / (SECTION_DATA.length - 1)
 const MARKER_RADIUS = 24
 
-const Home = () => {
+const Home = (props) => {
+  console.log('props: ', props);
   const [menuOpen, setMenuOpen] = useState(false)
   const [progressVisible, setProgressVisible] = useState(true)
 
@@ -222,3 +223,7 @@ const Home = () => {
 }
 
 export default Home
+
+export const getStaticProps = () => {
+  return { props: { test: 'test' } }
+}
