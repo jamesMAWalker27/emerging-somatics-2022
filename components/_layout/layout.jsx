@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import gsap from 'gsap'
 
 import { FBIcon } from '../_svg/fb-icon'
@@ -24,6 +24,7 @@ export const Layout = ({ bgVideo, slideFn }) => {
 
   const handleVideoReady = () => {
     setTimeout(() => {
+      console.log('video ready')
       gsap.to('#loading-shade', {
         opacity: 0,
         onComplete: () => {
@@ -33,6 +34,12 @@ export const Layout = ({ bgVideo, slideFn }) => {
       })
     }, 1500);
   }
+
+  useEffect(() => { 
+    setTimeout(() => {
+      handleVideoReady()
+    }, 5000);
+  }, [])
 
   return (
     <>
