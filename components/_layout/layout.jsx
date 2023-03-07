@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import gsap from 'gsap'
+
+import { useHeroVideoReady } from './layout.hooks'
 
 import { FBIcon } from '../_svg/fb-icon'
 import { InstaIcon } from '../_svg/insta-icon'
@@ -12,35 +14,16 @@ import { LoadingShade } from './loading-shade'
 import { bg, socials } from './layout.module.scss'
 
 export const Layout = ({ bgVideo, slideFn }) => {
-  const [loading, setLoading] = useState(true)
 
-  const fadeInFonts = () => {
+  const fadeInText = useCallback(() => {
     gsap.fromTo(
       '#hero-text',
       { opacity: 0 },
       { opacity: 1, delay: 0.25, duration: 1 }
     )
-  }
+  })
 
-  const handleVideoReady = () => {
-    setTimeout(() => {
-      gsap.to('#loading-shade', {
-        opacity: 0,
-        onComplete: () => {
-          fadeInFonts()
-          setLoading(false)
-        },
-      })
-    }, 1500)
-  }
-
-  useEffect(() => {
-    const video = document.getElementById('video-main')
-
-    video.addEventListener('canplay', handleVideoReady)
-    
-    return () => video.removeEventListener('canplay', handleVideoReady)
-  }, [])
+  const loading = useHeroVideoReady(fadeInText)
 
   return (
     <>
