@@ -24,7 +24,6 @@ export const Layout = ({ bgVideo, slideFn }) => {
 
   const handleVideoReady = () => {
     setTimeout(() => {
-      console.log('video ready')
       gsap.to('#loading-shade', {
         opacity: 0,
         onComplete: () => {
@@ -32,13 +31,15 @@ export const Layout = ({ bgVideo, slideFn }) => {
           setLoading(false)
         },
       })
-    }, 1500);
+    }, 1500)
   }
 
-  useEffect(() => { 
-    setTimeout(() => {
-      handleVideoReady()
-    }, 5000);
+  useEffect(() => {
+    const video = document.getElementById('video-main')
+
+    video.addEventListener('canplay', handleVideoReady)
+    
+    return () => video.removeEventListener('canplay', handleVideoReady)
   }, [])
 
   return (
@@ -65,7 +66,6 @@ export const Layout = ({ bgVideo, slideFn }) => {
           muted
           style={{ opacity: bgVideo === 'main' ? 1 : 0 }}
           // onCanPlay={handleVideoReady}
-          onPlay={handleVideoReady}
         />
         <video
           id='video-about'
