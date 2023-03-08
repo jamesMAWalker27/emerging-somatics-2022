@@ -13,7 +13,7 @@ import {
   btnScroll,
 } from './hero.module.scss'
 
-export const Hero = ({ slideFn }) => {
+export const Hero = ({ slideFn, heading, paragraph_1, paragraph_2 }) => {
   const [isMobile, setIsMobile] = useState()
 
   const handleScrollNextSection = (e) => {
@@ -26,10 +26,11 @@ export const Hero = ({ slideFn }) => {
         <Wordmark />
       </h1>
       <div className={centerContent} id='hero-text'>
-        <h2 className={header}>Discover Somatic Coaching & Bodywork.</h2>
+        <h2 className={header}>{heading}</h2>
         <p className={subheader}>
-          What do you care about? Who do you want to become? <br /> What change
-          do you want to affect? For yourself, and others?
+          {paragraph_1}
+          <br />
+          {paragraph_2}
         </p>
         <button
           className={btnScroll}

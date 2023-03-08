@@ -9,12 +9,18 @@ import { imgData, baseUrlMp4 } from '/lib/cloudinary.js'
 
 import { Layout } from '../components/_layout/layout'
 import { useInView } from 'react-intersection-observer'
+import { useContentful } from '../hooks/useContentful'
+import { mapSectionsToQuery } from '../lib/contentful'
 
 const GAP_DIST = 90 / (SECTION_DATA.length - 1)
 const MARKER_RADIUS = 24
 
-const Home = (props) => {
-  console.log('props: ', props)
+const Home = ({ dehydratedState }) => {
+  // console.log('dehydratedState: ', dehydratedState);
+ 
+  const sections = mapSectionsToQuery(SECTION_DATA, dehydratedState)
+  console.log('sections: ', sections);
+
   const [menuOpen, setMenuOpen] = useState(false)
   const [progressVisible, setProgressVisible] = useState(true)
 
@@ -199,10 +205,10 @@ const Home = (props) => {
       <Layout {...layoutProps} />
       <div id='masterWrap' {...swipeHandlers}>
         <div id='panelWrap' ref={container}>
-          {SECTION_DATA.map(({ _, Component }, idx) => {
+          {sections.map(({ Component, ...slide }, idx) => {
             return (
               <section key={idx} ref={(el) => (slidesArr.current[idx] = el)}>
-                <Component {...sectionProps} inViewRef={null} />
+                <Component {...sectionProps} {...slide} inViewRef={null} />
               </section>
             )
           })}
@@ -210,6 +216,8 @@ const Home = (props) => {
       </div>
       <div className='titleWrap'>
         {SECTION_DATA.map(({ title }) => {
+          
+          // > Mobile only section indicator
           return (
             <div key={title} className='title'>
               {title}
@@ -225,14 +233,10 @@ export default Home
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient()
+  const { getSlides } = useContentful()
 
-  await queryClient.prefetchQuery('test', async () => {
-    const res = await fetch(`https://rickandmortyapi.com/api/character/1`)
-    const data = await res.json()
-    console.log('data: ', data);
+  await queryClient.prefetchQuery('slides', async () => getSlides())
 
-    return data
-  })
   return {
     props: { dehydratedState: dehydrate(queryClient) },
   }

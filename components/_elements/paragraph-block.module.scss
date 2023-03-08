@@ -68,7 +68,15 @@
   overflow: visible;
   display: flex;
   align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  justify-content: flex-start;
+  span {
+    width: 80%;
+    @media (max-width: 592px) {
+      width: 100%;
+    }
+  }
   svg {
     margin-right: 1rem;
   }

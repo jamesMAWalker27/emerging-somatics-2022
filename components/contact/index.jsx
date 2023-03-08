@@ -16,12 +16,22 @@ import {
   messageWrapper,
 } from './contact.module.scss'
 
-export const Contact = () => {
+export const Contact = ({ heading, paragraph_1, paragraph_2 }) => {
   /*
     TODO: Mobile version.
   */
 
-  const { blurbContent, contacts, socials } = CONTACT_CONTENT
+  const { contacts, socials } = CONTACT_CONTENT
+
+  const blurbContent = {
+    header: heading,
+    text: (
+      <>
+        <span>{paragraph_1}</span>
+        <span>{paragraph_2}</span>
+      </>
+    ),
+  }
 
   return (
     <div className={contactContainer} id='contact-container'>

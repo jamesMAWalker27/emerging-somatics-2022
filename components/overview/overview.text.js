@@ -10,12 +10,12 @@ export const text_1 = (
       sessions). I will also help you to create a declaration for yourself. You
       can understand a declaration as a commitment to a future vision you have
       for yourself, based on what you deeply care about.
-    </span>
-    <span>
       A declaration mobilizes your intention, mobilizes those around you, as you
       start to embody the vision you have about your future. In this context
       embodiment means that your entire being - actions, thinking, speech,
       emotions, moods & physical presence - are reflecting your declaration.
+    </span>
+    <span>
     </span>
   </>
 )
@@ -102,7 +102,7 @@ export const OVERVIEW_CONTENT = [
       <>
         What to expect in
         <br />
-        Somatic Coaching.
+        Somatic Coaching. 
       </>
     ),
     text: text_1,

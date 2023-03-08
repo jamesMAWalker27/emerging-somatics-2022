@@ -10,6 +10,7 @@
     "analyze": "cross-env ANALYZE=true next build"
   },
   "dependencies": {
+    "contentful": "^9.3.3",
     "cross-env": "^7.0.3",
     "gsap": "^3.11.1",
     "next": "12.3.1",

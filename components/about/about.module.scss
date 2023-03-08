@@ -32,7 +32,7 @@
   align-items: flex-start;
   justify-content: center;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 65vh repeat(3, auto);
+  grid-template-rows: 75vh repeat(3, auto);
   div:nth-child(2) {
     transform: translateX(-25%);
     div {

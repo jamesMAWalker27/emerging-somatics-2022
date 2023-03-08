@@ -27,7 +27,102 @@ const SECTION_LEFT = 5011
 const ANIMATE_IDS = '#ab-par-block, #list, #end-list, #close, #expander-content'
 // const ANIMATE_IDS = '#ab-par-block, #3, #list, #end-list, #close, #expander-content'
 
-const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
+export const About = ({
+  toggleProgressVis,
+  slideFn,
+  heading,
+  paragraph_1,
+  paragraph_2,
+  buttonText,
+}) => {
+  const [aboutRef, aboutInView] = useInView({ threshold: 0.5 })
+  const [expanded, setExpanded] = useState(false)
+
+  const [portal, setPortal] = useState(null)
+
+  const { main } = ABOUT_CONTENT
+
+  // set portal location
+  useEffect(() => {
+    const portalLocation = document.querySelector('#portal')
+    setPortal(portalLocation)
+  }, [])
+
+  // set BG video
+  useEffect(() => {
+    if (aboutInView) {
+      gsap.to('#video-main, #video-end', {
+        opacity: 0,
+      })
+      gsap.to('#video-about', {
+        opacity: 1,
+      })
+    }
+    fadeIntoView(aboutInView, '#about-container')
+  }, [aboutInView])
+
+  const toggleExpand = () => {
+    setExpanded(!expanded)
+    setTimeout(() => {
+      // window.scrollTo(0, SECTION_LEFT - 1260)
+      window.scrollTo(0, SECTION_LEFT)
+    }, 1200)
+  }
+
+  const animateToggleExpand = () => {
+    const isClosing = expanded
+    const closeTL = gsap.timeline({ onComplete: toggleExpand })
+
+    toggleProgressVis()
+
+    if (isClosing) {
+      closeTL
+        .to(ANIMATE_IDS, {
+          opacity: 0,
+        })
+        .to(`.${bg}`, {
+          // scaleX: 0,
+          opacity: 0,
+        })
+    } else {
+      toggleExpand()
+    }
+  }
+
+  return (
+    <div className={aboutContainer} id='about-container' ref={aboutRef}>
+      {expanded ? (
+        createPortal(
+          <ExpanderContent
+            closeModal={animateToggleExpand}
+            expanded={expanded}
+            slideFn={slideFn}
+          />,
+          portal
+        )
+      ) : (
+        <ParagraphBlock
+          header={
+            <span>
+              {heading}
+            </span>
+          }
+          text={
+            <>
+              <span>{paragraph_1}</span>
+              <span>{paragraph_2}</span>
+            </>
+          }
+          btn={buttonText}
+          btnAction={animateToggleExpand}
+          btnVis={expanded}
+        />
+      )}
+    </div>
+  )
+}
+
+function ExpanderContent({ closeModal, expanded, slideFn }) {
   const { main, secondary, list, endList, closing } = ABOUT_CONTENT
 
   useEffect(() => {
@@ -102,84 +197,5 @@ const ExpanderContent = ({ closeModal, expanded, slideFn }) => {
         <ArrowIcon />
       </button>
     </section>
-  )
-}
-
-export const About = ({ toggleProgressVis, slideFn }) => {
-  const [aboutRef, aboutInView] = useInView({ threshold: 0.5 })
-  const [expanded, setExpanded] = useState(false)
-
-  const [portal, setPortal] = useState(null)
-
-  const { main } = ABOUT_CONTENT
-
-  // set portal location
-  useEffect(() => {
-    const portalLocation = document.querySelector('#portal')
-    setPortal(portalLocation)
-  }, [])
-
-  // set BG video
-  useEffect(() => {
-    if (aboutInView) {
-      gsap.to('#video-main, #video-end', {
-        opacity: 0,
-      })
-      gsap.to('#video-about', {
-        opacity: 1,
-      })
-    }
-    fadeIntoView(aboutInView, '#about-container')
-  }, [aboutInView])
-
-  const toggleExpand = () => {
-    setExpanded(!expanded)
-    setTimeout(() => {
-      // window.scrollTo(0, SECTION_LEFT - 1260)
-      window.scrollTo(0, SECTION_LEFT)
-    }, 1200)
-  }
-
-  const animateToggleExpand = () => {
-    const isClosing = expanded
-    const closeTL = gsap.timeline({ onComplete: toggleExpand })
-
-    toggleProgressVis()
-
-    if (isClosing) {
-      closeTL
-        .to(ANIMATE_IDS, {
-          opacity: 0,
-        })
-        .to(`.${bg}`, {
-          // scaleX: 0,
-          opacity: 0,
-        })
-    } else {
-      toggleExpand()
-    }
-  }
-
-  return (
-    <div className={aboutContainer} id='about-container' ref={aboutRef}>
-      {expanded ? (
-        createPortal(
-          <ExpanderContent
-            closeModal={animateToggleExpand}
-            expanded={expanded}
-            slideFn={slideFn}
-          />,
-          portal
-        )
-      ) : (
-        <ParagraphBlock
-          text={main.text}
-          header={main.header}
-          btn={main.btnText}
-          btnAction={animateToggleExpand}
-          btnVis={expanded}
-        />
-      )}
-    </div>
   )
 }

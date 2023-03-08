@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer'
 import { OVERVIEW_CONTENT } from './overview.text'
 
 import { ParagraphBlock } from '../_elements/paragraph-block'
-import { OutlineBtn } from '../_elements/outline-btn';
+import { OutlineBtn } from '../_elements/outline-btn'
 import { ArrowIcon } from '../_svg/collapse'
 
 import { fadeIntoView } from '../../animation/section-animations'
@@ -20,70 +20,14 @@ import {
   bg,
 } from './overview.module.scss'
 
-// TODO: Refactor to match vertical layout style of about page.
-// TODO: Refactor both about and ov to use a modal rather than portal.
 
-const ExpanderContent = ({ closeModal, slideFn }) => {
-  useEffect(() => {
-    const openTL = gsap.timeline()
-
-    openTL
-      .fromTo(
-        `.${bg}`,
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-        }
-      )
-      .fromTo(
-        '#ov-par-block, #ov-btn-col, #indicator',
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-        }
-      )
-  }, [])
-
-  const closeToAppointments = (e) => {
-    closeModal()
-    setTimeout(() => {
-      slideFn.current(e)
-    }, 500)
-    // animate closed & use slideFn.current to scroll to calendar
-  }
-
-
-  return (
-    <section className={expanderContent} id='expander'>
-      <div className={blocks} id='text-blocks'>
-        {OVERVIEW_CONTENT.map((oc, idx) => {
-          return (
-            <div className={block}>
-              <h2>{oc.header}</h2>
-              <p>{oc.text}</p>
-            </div>
-          )
-        })}
-        <OutlineBtn
-          text='Make an Appointment →'
-          action={(e) => closeToAppointments(e)}
-          slideFnData={{ attr: 'slide-link', id: 5 }}
-        />
-      </div>
-      <button className={btnCollapse} onClick={closeModal} id='ov-btn-col'>
-        <span>Collapse</span>
-        <ArrowIcon />
-      </button>
-      <div className={bg} />
-    </section>
-  )
-}
-
-export const Overview = ({ toggleProgressVis, slideFn }) => {
+export const Overview = ({
+  toggleProgressVis,
+  slideFn,
+  heading,
+  paragraph_1,
+  buttonText,
+}) => {
   const [ovRef, ovInView] = useInView({ threshold: 0.8 })
   const [expanded, setExpanded] = useState(false)
   const [portal, setPortal] = useState(null)
@@ -143,14 +87,74 @@ export const Overview = ({ toggleProgressVis, slideFn }) => {
         )
       ) : (
         <ParagraphBlock
-          text={OC[0].text}
-          header={OC[0].header}
-          btn={OC[0].btnText}
+          header={heading}
+          text={<span>{paragraph_1}</span>}
+          btn={buttonText}
           btnAction={animateToggleExpand}
           btnVis={expanded}
           btnClass={'ov-btn'}
         />
       )}
+    </section>
+  )
+}
+
+
+function ExpanderContent({ closeModal, slideFn }) {
+  useEffect(() => {
+    const openTL = gsap.timeline()
+
+    openTL
+      .fromTo(
+        `.${bg}`,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+        }
+      )
+      .fromTo(
+        '#ov-par-block, #ov-btn-col, #indicator',
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+        }
+      )
+  }, [])
+
+  const closeToAppointments = (e) => {
+    closeModal()
+    setTimeout(() => {
+      slideFn.current(e)
+    }, 500)
+    // animate closed & use slideFn.current to scroll to calendar
+  }
+
+  return (
+    <section className={expanderContent} id='expander'>
+      <div className={blocks} id='text-blocks'>
+        {OVERVIEW_CONTENT.map((oc, idx) => {
+          return (
+            <div className={block}>
+              <h2>{oc.header}</h2>
+              <p>{oc.text}</p>
+            </div>
+          )
+        })}
+        <OutlineBtn
+          text='Make an Appointment →'
+          action={(e) => closeToAppointments(e)}
+          slideFnData={{ attr: 'slide-link', id: 5 }}
+        />
+      </div>
+      <button className={btnCollapse} onClick={closeModal} id='ov-btn-col'>
+        <span>Collapse</span>
+        <ArrowIcon />
+      </button>
+      <div className={bg} />
     </section>
   )
 }
