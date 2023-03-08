@@ -2,35 +2,44 @@ import { useCallback, useEffect, useState } from 'react'
 import gsap from 'gsap'
 
 export const useHeroVideoReady = (onLoadedAction) => {
-   const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
-   const handleVideoReady = useCallback(() => {
-     setTimeout(() => {
-       gsap.to('#loading-shade', {
-         opacity: 0,
-         onComplete: () => {
-           setLoading(false)
-         },
-       })
-     }, 1000)
-   })
+  const handleVideoReady = useCallback((onComplete = () => {}) => {
+    setTimeout(() => {
+      gsap.to('#loading-shade', {
+        opacity: 0,
+        onComplete,
+      })
+    }, 1000)
+  })
 
-   useEffect(() => {
-     const video = document.getElementById('video-main')
+  // action on video ready
+  useEffect(() => {
+    const video = document.getElementById('video-main')
+    
+    const handleCanPlay = () => {
+      handleVideoReady(() => setLoading(false))
+      video.removeEventListener('canplay', handleVideoReady)
+    }
 
-     const handleCanPlay = () => {
-       handleVideoReady()
-       video.removeEventListener('canplay', handleVideoReady)
-     }
+    video.addEventListener('canplay', handleCanPlay)
 
-     video.addEventListener('canplay', handleCanPlay)
+    return () => video.removeEventListener('canplay', handleCanPlay)
+  }, [handleVideoReady])
 
-     return () => video.removeEventListener('canplay', handleCanPlay)
-   }, [handleVideoReady])
+  // action on timeout
+  useEffect(() => {
+    const video = document.getElementById('video-main')
 
-   useEffect(() => {
-     if (!loading) onLoadedAction()
-   }, [onLoadedAction, loading])
+    setTimeout(() => {
+      video.removeEventListener('canplay', handleVideoReady)
+      setLoading(false)
+    }, 5000)
+  }, [])
 
-   return loading
+  useEffect(() => {
+    if (!loading) onLoadedAction()
+  }, [onLoadedAction, loading])
+
+  return loading
 }
